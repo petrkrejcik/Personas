@@ -1,0 +1,8 @@
+{
+  "name": "personas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:petrkrejcik/personas.git",
+  "author": "Petr Krejčík <petr.krejcik@socialbakers.com>",
+  "license": "MIT"
+}
