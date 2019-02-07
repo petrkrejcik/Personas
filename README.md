@@ -5,7 +5,7 @@
 
 ## Run
 ```sh
-parcel watch index.html
+npm start
 ```
 
 ## Build

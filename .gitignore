@@ -1,2 +1,4 @@
 personas.sublime-project
 personas.sublime-workspace
+.cache/
+dist/

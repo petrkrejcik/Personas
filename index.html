@@ -4,15 +4,22 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Title</title>
-  <meta name="description" content="Template description">
-  <meta name="author" content="Pedro">
+  <title>Personas</title>
+	<meta name="description" content="Template description">
+	<meta name="author" content="Pedro">
+	<link rel='manifest' href='/manifest'>
+	<link rel="icon" href="/favicon.ico">
 
-  <!-- <link rel="stylesheet" href="styles.css"> -->
+	<script defer src='src/index.js'></script>
+	<!-- <script defer src='https://apis.google.com/js/api.js' onload='googleDriveLoaded()'></script> -->
+
+	<!-- <link rel="stylesheet" href="styles.css"> -->
 
 </head>
 
-<body>
-  <script src="src/index.js"></script>
+<body class="loading">
+	<div class="persons"/>
+	<!-- <script>console.log('inline script in body')</script> -->
+	<!-- <button>Sync with Google Drive</button> -->
 </body>
 </html>

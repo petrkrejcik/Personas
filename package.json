@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:petrkrejcik/personas.git",
   "author": "Petr Krejčík <petr.krejcik@socialbakers.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+  	"start": "parcel index.html"
+  }
 }
