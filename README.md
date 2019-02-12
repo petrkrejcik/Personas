@@ -12,12 +12,12 @@ npm start
 
 ## Build
 ```sh
-parcel build index.html
+npm build
 ```
 
 #### Google Drive API Console
-https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId
+[](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
 
-[https://developers.google.com/drive/api/v2/reference/](API reference)
-[https://developers.google.com/drive/api/v3/search-parameters](API reference)
+[API reference](https://developers.google.com/drive/api/v2/reference)
+[Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
