@@ -14,6 +14,8 @@ npm start
 ```sh
 npm run build
 ```
+- Will build app into `/docs` folder with publish URL set to `/personas`.
+- Just commit this dir on GitHub and it will work on [](https://petrkrejcik.github.io/personas)
 
 #### Google Drive API Console
 [](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
