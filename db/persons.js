@@ -1,26 +1,28 @@
 export default [
-	[
-		{
-			type: 'text',
-			value: 'Matěj',
-		},
-		{
-			type: 'date',
-			value: '1985-11-08',
-		},
-		{
-			type: 'seen',
-			value: '2018-11-08',
-		},
-	],
-	[
-		{
-			type: 'text',
-			value: 'Emma',
-		},
-		{
-			type: 'date',
-			value: '2008-06-15',
-		},
-	],
+	{
+		name: 'Matěj',
+		birthday: '2007-10-04',
+		seen: '2019-02-02',
+		customTexts: [
+			'4.C',
+		],
+	},
+	{
+		name: 'Emma',
+		birthday: '2009-06-23',
+		seen: '2019-02-02',
+		customTexts: [
+			'3.C',
+		],
+	},
+	{
+		name: 'Ondra',
+		birthday: '2013-03-04',
+		seen: '2019-02-02',
+	},
+	{
+		name: 'Růža',
+		birthday: '1954-10-01',
+		seen: '2019-02-09',
+	},
 ]

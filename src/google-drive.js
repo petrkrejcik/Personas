@@ -1,48 +1,124 @@
-googleDriveLoaded = () => {
-	gapi.load('client:auth2', initClient)
+const APP_FOLDER = 'App-Personas'
+
+const init = () => {
+	return new Promise ((resolve, reject) => {
+		gapi.load('client:auth2', () => {
+			initClient().then(resolve)
+		})
+	})
 }
 
-initClient = () => {
-	console.info('👉', 'init')
-	gapi.client.init({
-		'apiKey': 'AIzaSyBz6kaw8hv33obv4U4L88r1MgjeX99XgTo',
-		'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-		'clientId': '614338309616-st9nui22tf3sa1cm9m1l3nd439n50frg.apps.googleusercontent.com',
-		'scope': 'https://www.googleapis.com/auth/drive.file'
-	}).then(() => {
-		console.info('👉', 'get instance')
-		GoogleAuth = gapi.auth2.getAuthInstance()
-		GoogleAuth.isSignedIn.listen(updateSigninStatus);
-		if (GoogleAuth.isSignedIn.get()) {
-			console.info('👉', 'already logged')
-			loadFiles()
+const initClient = () => {
+	console.info('👉', 'init google client')
+	return new Promise ((resolve, reject) => {
+		gapi.client.init({
+			'apiKey': 'AIzaSyBYItpNT8k2Y2AEHz2E2kI2EqMULh5C4m0',
+			'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+			'clientId': '614338309616-st9nui22tf3sa1cm9m1l3nd439n50frg.apps.googleusercontent.com',
+			'scope': 'https://www.googleapis.com/auth/drive.file'
+		})
+		.then(() => {
+			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
+			if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+				console.info('👉', 'already logged')
+				loadFiles().then(resolve)
+			} else {
+				resolve()
+			}
+		})
+	})
+}
+
+const updateSigninStatus = (co) => {
+	console.info('👉', 'logged?', gapi.auth2.getAuthInstance().currentUser.get())
+}
+
+const loadFiles = () => {
+	return getFolder()
+	.then(findFile)
+	.then(readFile)
+}
+
+const getFolder = () => {
+	return new Promise ((resolve, reject) => {
+		const request = gapi.client.drive.files.list({
+			q: `name='${APP_FOLDER}' and trashed=false`,
+		})
+
+		request.execute((response) => {
+			if (response.files.length === 0) {
+				createFolder().then(resolve)
+			} else {
+				resolve(response.files[0].id)
+			}
+		})
+	})
+}
+
+const createFolder = () => {
+	return new Promise ((resolve, reject) => {
+		console.info('👉', 'creating')
+		const metadata = {
+			name: APP_FOLDER,
+			mimeType: 'application/vnd.google-apps.folder'
 		}
+		const request = gapi.client.drive.files.create({resource: metadata})
+		request.execute((response) => {
+			console.info('👉', 'created', response)
+			resolve(response.id)
+		})
 	})
 }
 
-updateSigninStatus = (co) => {
-	console.info('👉', 'updateSigninStatus', co)
-	// console.info('👉', 'logged as', GoogleAuth.currentUser.get())
+const findFile = (folderId) => {
+	return new Promise ((resolve, reject) => {
+		console.info('👉', 'folderId', folderId)
+		const request = gapi.client.drive.files.list({
+			q: `name="persons.json" and '${folderId}' in parents`,
+		})
+		request.execute((response) => {
+			console.info('👉', 'find file response', response)
+			if (response.files.length === 0) {
+				// create file
+				resolve(null)
+			} else {
+				resolve(response.files[0])
+			}
+		})
+	})
 }
 
-connectGoogleDrive = () => {
-	// GoogleAuth.currentUser.get()
-	GoogleAuth.signIn()
+const readFile = (file) => {
+	return new Promise ((resolve, reject) => {
+		const request = gapi.client.drive.files.get({
+			fileId: file.id,
+			alt: 'media'
+		})
+		request.execute((response) => {
+			const r = response.result.map(result => {
+				return {
+					...result,
+					name: decodeURIComponent(escape(result.name)),
+				}
+			})
+			resolve(r)
+		})
+	})
 }
 
-loadFiles = () => {
-	// files = resource
-	// post = method
-	const metadata = {
-		//id 1eBA6K5-p6F54mFbf4hWaFpMEnmdiBQhJ
-		name: 'Apps',
-		mimeType: 'application/vnd.google-apps.folder'
-		// mimeType: 'application/vnd.google-apps.file'
+const connect = () => {
+	console.info('👉', 'connect')
+	if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+		console.info('👉', 'already logged')
+		gapi.auth2.getAuthInstance().currentUser.get()
+		loadFiles()
+	} else {
+		console.info('👉', 'signign in...')
+		gapi.auth2.getAuthInstance().signIn()
 	}
-	// const request = gapi.client.drive.files.create({resource: metadata})
-	const request = gapi.client.drive.files.list()
+}
 
-	request.execute((response) => {
-	  console.log('mam to', response)
-	})
+export {
+	connect,
+	init,
 }

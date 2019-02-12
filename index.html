@@ -10,16 +10,15 @@
 	<link rel='manifest' href='/manifest'>
 	<link rel="icon" href="/favicon.ico">
 
-	<script defer src='src/index.js'></script>
-	<!-- <script defer src='https://apis.google.com/js/api.js' onload='googleDriveLoaded()'></script> -->
-
 	<!-- <link rel="stylesheet" href="styles.css"> -->
 
 </head>
 
 <body class="loading">
+	<button data-ps="googlePlusSync" disabled>Sync with Google Drive</button>
 	<div class="persons"/>
-	<!-- <script>console.log('inline script in body')</script> -->
-	<!-- <button>Sync with Google Drive</button> -->
+
+	<script defer src='src/index.js' onload="Index.setup()"></script>
+	<script defer src='https://apis.google.com/js/api.js' onload="Index.googleLibLoaded();"></script>
 </body>
 </html>
