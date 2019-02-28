@@ -23,7 +23,7 @@ const initClient = () => {
 				console.info('👉', 'already logged')
 				loadFiles().then(resolve)
 			} else {
-				resolve()
+				resolve([])
 			}
 		})
 	})

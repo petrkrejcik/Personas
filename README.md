@@ -24,3 +24,6 @@ npm run build
 
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
+## TODO
+[] Loader - overlay will disable entire page
+[] Rename `Index` namespace to `personass`
