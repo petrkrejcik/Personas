@@ -98,7 +98,7 @@ const readFile = (file) => {
 			const r = response.result.map(result => {
 				return {
 					...result,
-					name: decodeURIComponent(escape(result.name)),
+					name: unescape(result.name),
 				}
 			})
 			resolve(r)
