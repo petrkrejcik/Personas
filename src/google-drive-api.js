@@ -1,6 +1,8 @@
 const APP_FOLDER = 'App-Personas'
+let onSignInChangeHandler = Function
 
-const init = () => {
+const init = (options = {}) => {
+	setupOptions(options)
 	return new Promise ((resolve, reject) => {
 		gapi.load('client:auth2', () => {
 			initClient().then(resolve)
@@ -8,8 +10,12 @@ const init = () => {
 	})
 }
 
+const setupOptions = ({onSignInChange}) => {
+	if (onSignInChange) onSignInChangeHandler = onSignInChange
+}
+
 const initClient = () => {
-	console.info('👉', 'init google client')
+	console.info('👉', 'finding session...')
 	return new Promise ((resolve, reject) => {
 		gapi.client.init({
 			'apiKey': 'AIzaSyBYItpNT8k2Y2AEHz2E2kI2EqMULh5C4m0',
@@ -18,22 +24,41 @@ const initClient = () => {
 			'scope': 'https://www.googleapis.com/auth/drive.file'
 		})
 		.then(() => {
-			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-			if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-				console.info('👉', 'already logged')
-				loadFiles().then(resolve)
-			} else {
-				resolve([])
-			}
+			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
+			updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+			resolve({isInitiated: true})
+			// if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+			// 	console.info('👉', 'session restored')
+			// 	fetchData().then(resolve)
+			// 	updateSignInStatus()
+			// } else {
+			// 	console.info('👉', 'no session stored')
+			// 	// TODO: create empty persons.json
+			// 	resolve([])
+			// }
 		})
 	})
 }
 
-const updateSigninStatus = (co) => {
-	console.info('👉', 'logged?', gapi.auth2.getAuthInstance().currentUser.get())
+const updateSignInStatus = (isLogged) => {
+	// touhle metodou musim vyvolat rerender
+	onSignInChangeHandler(isLogged)
+	// if (!isLogged) return
+	// fetchData()
 }
 
-const loadFiles = () => {
+const connect = () => {
+	console.info('👉', 'manual connect')
+	if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+		console.info('👉', 'already logged')
+		fetchData()
+	} else {
+		console.info('👉', 'signign in...')
+		gapi.auth2.getAuthInstance().signIn()
+	}
+}
+
+const fetchData = () => {
 	return getFolder()
 	.then(findFile)
 	.then(readFile)
@@ -106,19 +131,8 @@ const readFile = (file) => {
 	})
 }
 
-const connect = () => {
-	console.info('👉', 'connect')
-	if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		console.info('👉', 'already logged')
-		gapi.auth2.getAuthInstance().currentUser.get()
-		loadFiles()
-	} else {
-		console.info('👉', 'signign in...')
-		gapi.auth2.getAuthInstance().signIn()
-	}
-}
-
 export {
 	connect,
 	init,
+	fetchData,
 }

@@ -1,6 +1,8 @@
 const listeners = []
 let state = {
 	googleSyncEnabled: false,
+	isSignedIn: false,
+	persons: [],
 }
 
 const getState = () => {

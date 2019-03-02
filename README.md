@@ -20,10 +20,17 @@ npm run build
 #### Google Drive API Console
 [Google Console](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
 
+##### API
 [API reference](https://developers.google.com/drive/api/v2/reference)
+`gapi.auth2.getAuthInstance().signIn()`
+`gapi.auth2.getAuthInstance().signOut()`
+`gapi.auth2.getAuthInstance().isSignedIn.get()`
 
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
 ## TODO
 [] Loader - overlay will disable entire page
-[] Rename `Index` namespace to `personass`
+[] CSS - Google Drive button - hide when connected; overlay with the button
+[] CSS - make cards
+[] Service worker - to work offline
+[] Create empty `persons.json` if doesn't exist

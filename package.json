@@ -6,8 +6,8 @@
   "author": "Petr Krejčík <petr.krejcik@socialbakers.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html --global Index",
-    "build": "parcel build index.html --global Index --out-dir docs --public-url /personas/"
+    "start": "parcel index.html --global prs",
+    "build": "parcel build index.html --global prs --out-dir docs --public-url /personas/"
   },
   "browserslist": [
     "last 1 Chrome version"
