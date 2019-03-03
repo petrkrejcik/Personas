@@ -1,5 +1,5 @@
 import {connect, fetchData, init} from './google-drive-api.js'
-import {addListener, dispatchUpdate, getState, setState} from './state.js'
+import {addListener, getState, setState} from './state.js'
 
 const setup = () => {
 	addListener(update)
@@ -9,6 +9,8 @@ const setup = () => {
 const libLoaded = () => {
 	const options = {
 		onSignInChange: onSignInChange,
+		onUpdate: updatePersons,
+		onError: onError,
 		// TODO: apiKey, etc
 	}
 	init(options).then((result) => {
@@ -32,6 +34,11 @@ const onSignInChange = (isSignedIn) => {
 	} else {
 		setState({isSignedIn, isLoading: false})
 	}
+}
+
+const onError = (error) => {
+	setState({isLoading: false})
+	alert(error)
 }
 
 const updateGoogleButton = (isEnabled) => {

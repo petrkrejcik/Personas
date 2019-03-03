@@ -29,8 +29,11 @@ npm run build
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
 ## TODO
-[] Loader - overlay will disable entire page
-[] CSS - Google Drive button - hide when connected; overlay with the button
-[] CSS - make cards
-[] Service worker - to work offline
+[] Add `view` to `state`
+[] Service worker - to work offline: cache google libs; cache persons
+  - problem with hash in the filename
 [] Create empty `persons.json` if doesn't exist
+[] Better error messages (e.g. after unsuccessful sync)
+[] Remove person
+[] Edit person
+[] Top bar

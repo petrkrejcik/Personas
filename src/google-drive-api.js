@@ -1,5 +1,8 @@
 const APP_FOLDER = 'App-Personas'
 let onSignInChangeHandler = Function
+let onUpdateHandler = Function
+let onErrorHandler = Function
+let file = Object
 
 const init = (options = {}) => {
 	setupOptions(options)
@@ -10,12 +13,13 @@ const init = (options = {}) => {
 	})
 }
 
-const setupOptions = ({onSignInChange}) => {
+const setupOptions = ({onError, onSignInChange, onUpdate}) => {
 	if (onSignInChange) onSignInChangeHandler = onSignInChange
+	if (onUpdate) onUpdateHandler = onUpdate
+	if (onError) onErrorHandler = onError
 }
 
 const initClient = () => {
-	console.info('👉', 'finding session...')
 	return new Promise ((resolve, reject) => {
 		gapi.client.init({
 			'apiKey': 'AIzaSyBYItpNT8k2Y2AEHz2E2kI2EqMULh5C4m0',
@@ -27,33 +31,18 @@ const initClient = () => {
 			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
 			updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
 			resolve({isInitiated: true})
-			// if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-			// 	console.info('👉', 'session restored')
-			// 	fetchData().then(resolve)
-			// 	updateSignInStatus()
-			// } else {
-			// 	console.info('👉', 'no session stored')
-			// 	// TODO: create empty persons.json
-			// 	resolve([])
-			// }
 		})
 	})
 }
 
 const updateSignInStatus = (isLogged) => {
-	// touhle metodou musim vyvolat rerender
 	onSignInChangeHandler(isLogged)
-	// if (!isLogged) return
-	// fetchData()
 }
 
 const connect = () => {
-	console.info('👉', 'manual connect')
 	if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		console.info('👉', 'already logged')
 		fetchData()
 	} else {
-		console.info('👉', 'signign in...')
 		gapi.auth2.getAuthInstance().signIn()
 	}
 }
@@ -61,6 +50,10 @@ const connect = () => {
 const fetchData = () => {
 	return getFolder()
 	.then(findFile)
+	.then((foundFile) => {
+		file = foundFile
+		return Promise.resolve()
+	})
 	.then(readFile)
 }
 
@@ -82,7 +75,6 @@ const getFolder = () => {
 
 const createFolder = () => {
 	return new Promise ((resolve, reject) => {
-		console.info('👉', 'creating')
 		const metadata = {
 			name: APP_FOLDER,
 			mimeType: 'application/vnd.google-apps.folder'
@@ -97,12 +89,10 @@ const createFolder = () => {
 
 const findFile = (folderId) => {
 	return new Promise ((resolve, reject) => {
-		console.info('👉', 'folderId', folderId)
 		const request = gapi.client.drive.files.list({
 			q: `name="persons.json" and '${folderId}' in parents`,
 		})
 		request.execute((response) => {
-			console.info('👉', 'find file response', response)
 			if (response.files.length === 0) {
 				// create file
 				resolve(null)
@@ -113,7 +103,7 @@ const findFile = (folderId) => {
 	})
 }
 
-const readFile = (file) => {
+const readFile = () => {
 	return new Promise ((resolve, reject) => {
 		const request = gapi.client.drive.files.get({
 			fileId: file.id,
@@ -131,8 +121,25 @@ const readFile = (file) => {
 	})
 }
 
+const updateContent = (content) => {
+	const request = gapi.client.request({
+		path: '/upload/drive/v2/files/' + file.id,
+		method: 'PUT',
+		alt: 'media',
+		body: content,
+	})
+	request.execute((response) => {
+		if (response.error) {
+			onErrorHandler(`Error during sync: ${response.error.message}`)
+			return
+		}
+		readFile().then(onUpdateHandler)
+	})
+}
+
 export {
 	connect,
-	init,
 	fetchData,
+	init,
+	updateContent,
 }

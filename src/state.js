@@ -3,6 +3,7 @@ let state = {
 	googleSyncEnabled: false,
 	isSignedIn: false,
 	persons: [],
+	isLoading: true,
 }
 
 const getState = () => {
