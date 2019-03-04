@@ -23,7 +23,8 @@ const renderPersons = (persons) => {
 				age: getAge(person.birthday),
 				daysToBirthday: getDaysToBirthday(person.birthday),
 				seenBefore: getSeenBefore(person.seen),
-				resetSeen: resetSeen,
+				handleEdit: edit,
+				handleRemove: remove,
 			}
 		})
 		.sort(sortByBirthday)
@@ -75,8 +76,26 @@ const addPerson = (name, birthday) => {
 		alert(error)
 		return
 	}
-	setState({isLoading: true})
+	setState({view: 'loading'})
 	updateContent(getState().persons.concat({name, birthday}))
+}
+
+const editPerson = (id, name, birthday) => {
+	const error = getValidationError(name, birthday)
+	if (error) {
+		alert(error)
+		return
+	}
+	const persons = getState().persons.map(person => {
+		if (person.id !== id) return person
+		return {
+			...person,
+			name,
+			birthday
+		}
+	})
+	setState({view: 'loading'})
+	updateContent(persons)
 }
 
 const getValidationError = (name, birthday) => {
@@ -89,9 +108,9 @@ const getValidationError = (name, birthday) => {
 	return null
 }
 
-const resetSeen = (personIndex) => {
-	const persons = getState().persons.map((person, i) => {
-		if (i !== personIndex) return person
+const resetSeen = (id) => {
+	const persons = getState().persons.map((person) => {
+		if (id !== person.id) return person
 		const now = new Date()
 		const year = now.getUTCFullYear()
 		const month = (now.getMonth() + 1 + '').padStart(2, '0')
@@ -101,8 +120,15 @@ const resetSeen = (personIndex) => {
 			seen: `${year}-${month}-${day}`,
 		}
 	})
-	setState({isLoading: true})
+	setState({view: 'loading'})
 	updateContent(persons)
 }
 
-export {addPerson, resetSeen, setup}
+const edit = (id) => {
+	setState({view: 'edit', editingPerson: id})
+}
+const remove = (id) => {
+	// TODO
+}
+
+export {editPerson, resetSeen, setup}

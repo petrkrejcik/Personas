@@ -4,6 +4,8 @@ let state = {
 	isSignedIn: false,
 	persons: [],
 	isLoading: true,
+	view: 'loading',
+	editingPerson: null,
 }
 
 const getState = () => {

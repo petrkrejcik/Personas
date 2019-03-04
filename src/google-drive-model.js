@@ -4,6 +4,7 @@ import {addListener, getState, setState} from './state.js'
 const setup = () => {
 	addListener(update)
 	getGoogleSyncButton().addEventListener('click', connect)
+	window.getState = getState
 }
 
 const libLoaded = () => {
@@ -24,20 +25,26 @@ const update = (state) => {
 }
 
 const updatePersons = (persons) => {
-	setState({persons, isLoading: false})
+	persons = persons.map(person => {
+		return {
+			...person,
+			id: Math.random().toString(36).substring(10),
+		}
+	})
+	setState({persons, view: 'persons'})
 }
 
 const onSignInChange = (isSignedIn) => {
 	if (isSignedIn) {
-		setState({isSignedIn, isLoading: true})
+		setState({isSignedIn, view: 'loading'})
 		fetchData().then(updatePersons)
 	} else {
-		setState({isSignedIn, isLoading: false})
+		setState({isSignedIn, view: 'signIn'})
 	}
 }
 
 const onError = (error) => {
-	setState({isLoading: false})
+	setState({view: 'error'})
 	alert(error)
 }
 

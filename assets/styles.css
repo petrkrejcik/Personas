@@ -1,7 +1,7 @@
 body {
 	background-color: #f2f2f2;
 	margin: 0;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .persons {
@@ -43,4 +43,8 @@ body {
 }
 
 .loader {
+}
+
+.edit {
+	display: none;
 }

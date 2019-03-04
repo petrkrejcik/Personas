@@ -37,3 +37,4 @@ npm run build
 [] Remove person
 [] Edit person
 [] Top bar
+[] Remove obsolete JS and CSS files after build

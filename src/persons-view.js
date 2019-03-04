@@ -1,5 +1,3 @@
-import {getState, setState} from './state.js'
-
 const renderPersons = (persons, handleAdd) => {
 	const el = document.querySelector('.persons')
 	persons
@@ -8,18 +6,28 @@ const renderPersons = (persons, handleAdd) => {
 	el.appendChild(renderAdd(handleAdd))
 }
 
-const renderPerson = (person, index) => {
+const renderPerson = (person) => {
 	const el = document.createElement('div')
 	el.classList.add('person')
 	const fields = [
 		renderTitle(person.name),
 		renderBirthday(person.birthday, person.age, person.daysToBirthday),
-		renderSeen(person.seenBefore, index, person.resetSeen),
+		renderSeen(person.seenBefore),
 		...renderCustomTexts(person.customTexts),
 	]
 	fields
 	.filter(Boolean)
 	.forEach(field => el.appendChild(field))
+	const actions = document.createElement('div')
+	const edit = document.createElement('button')
+	const remove = document.createElement('button')
+	edit.innerText = 'Edit'
+	remove.innerText = 'Remove'
+	edit.addEventListener('click', person.handleEdit.bind(null, person.id))
+	remove.addEventListener('click', person.handleRemove.bind(null, person.id))
+	actions.appendChild(edit)
+	actions.appendChild(remove)
+	el.appendChild(actions)
 	return el
 }
 
@@ -42,15 +50,11 @@ const renderBirthday = (birthday, age, daysToBirthday) => {
 	return el
 }
 
-const renderSeen = (days, personIndex, handleReset) => {
-	if (!days) return null
+const renderSeen = (days) => {
+	if (!days && days !== 0) return null
 	const el = document.createElement('div')
 	const button = document.createElement('button')
-	button.classList.add('buttonSeen')
-	button.innerText = 'Today'
-	button.addEventListener('click', handleReset.bind(null, personIndex))
 	el.innerHTML = `Seen before ${days} days`
-	el.appendChild(button)
 	return el
 }
 
@@ -71,7 +75,7 @@ const renderAdd = (handleAdd) => {
 	const save = document.createElement('button')
 	name.placeholder = 'Name'
 	birthday.placeholder = 'Birthday (YYYY-MM-DD)'
-	save.innerHTML = 'Save'
+	save.innerText = 'Save'
 	save.addEventListener('click', () => {
 		handleAdd(name.value, birthday.value)
 	})
