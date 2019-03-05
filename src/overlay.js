@@ -26,7 +26,6 @@ const update = (state) => {
 	showElement(ELEMENTS.singIn, state.view === 'signIn')
 	showElement(ELEMENTS.edit, state.view === 'edit')
 	showElement(ELEMENTS.overlay, ['loading', 'edit', 'signIn'].includes(state.view))
-	console.info('👉', 'state.editingPerson', state.editingPerson)
 	if (state.view === 'edit' && state.editingPerson) {
 		renderEdit(state.persons.find(({id}) => id === state.editingPerson))
 	}

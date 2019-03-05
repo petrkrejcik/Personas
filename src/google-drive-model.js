@@ -12,6 +12,7 @@ const libLoaded = () => {
 		onSignInChange: onSignInChange,
 		onUpdate: updatePersons,
 		onError: onError,
+		defaultContent: [],
 		// TODO: apiKey, etc
 	}
 	init(options).then((result) => {
@@ -25,9 +26,13 @@ const update = (state) => {
 }
 
 const updatePersons = (persons) => {
+	if (!Array.isArray(persons)) {
+		onError('Unknown reposonse from server')
+	}
 	persons = persons.map(person => {
 		return {
 			...person,
+			name: unescape(person.name),
 			id: Math.random().toString(36).substring(10),
 		}
 	})

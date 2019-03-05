@@ -2,6 +2,7 @@
 
 ## Devstack
 - [https://parceljs.org/getting_started.html](parcel.js)
+- Vanilla JS
 
 ## Run
 ```sh
@@ -38,3 +39,5 @@ npm run build
 [] Edit person
 [] Top bar
 [] Remove obsolete JS and CSS files after build
+[] Share persons - open URL with persons in query
+[] Back button on mobile closes the app (create a router)
