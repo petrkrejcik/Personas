@@ -1,3 +1,6 @@
+import {birthdayPicker} from './components/birthday-picker.js'
+import ICONS from './components/icons.js'
+
 const renderPersons = (persons, handleAdd) => {
 	const el = document.querySelector('.persons')
 	persons
@@ -18,16 +21,16 @@ const renderPerson = (person) => {
 	fields
 	.filter(Boolean)
 	.forEach(field => el.appendChild(field))
-	const actions = document.createElement('div')
-	const edit = document.createElement('button')
-	const remove = document.createElement('button')
-	edit.innerText = 'Edit'
-	remove.innerText = 'Remove'
+	const edit = document.createElement('div')
+	const remove = document.createElement('div')
+	edit.classList.add('icon-edit', 'icon')
+	remove.classList.add('icon-remove', 'icon')
 	edit.addEventListener('click', person.handleEdit.bind(null, person.id))
 	remove.addEventListener('click', person.handleRemove.bind(null, person.id))
-	actions.appendChild(edit)
-	actions.appendChild(remove)
-	el.appendChild(actions)
+	edit.innerHTML = ICONS.edit
+	remove.innerHTML = ICONS.remove
+	el.appendChild(remove)
+	el.appendChild(edit)
 	return el
 }
 
@@ -71,16 +74,17 @@ const clearPersons = () => {
 const renderAdd = (handleAdd) => {
 	const el = document.createElement('div')
 	const name = document.createElement('input')
-	const birthday = document.createElement('input')
+	const [day, month, year] = birthdayPicker({day: 1, month: 1, year: 1980})
 	const save = document.createElement('button')
 	name.placeholder = 'Name'
-	birthday.placeholder = 'Birthday (YYYY-MM-DD)'
 	save.innerText = 'Save'
 	save.addEventListener('click', () => {
-		handleAdd(name.value, birthday.value)
+		handleAdd(name.value, day.value, month.value, year.value)
 	})
 	el.appendChild(name)
-	el.appendChild(birthday)
+	el.appendChild(day)
+	el.appendChild(month)
+	el.appendChild(year)
 	el.appendChild(save)
 	return el
 }

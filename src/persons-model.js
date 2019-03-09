@@ -1,6 +1,7 @@
 import {addListener, getState, setState} from './state.js'
 import {updateContent} from './google-drive-api.js'
 import * as view from './persons-view.js'
+import {createIso} from './utils/date.js'
 
 const setup = () => {
 	addListener(update)
@@ -70,7 +71,8 @@ const getDaysToBirthday = (isoDate) => {
 	return days
 }
 
-const addPerson = (name, birthday) => {
+const addPerson = (name, day, month, year) => {
+	const birthday = createIso(day, month, year)
 	const error = getValidationError(name, birthday)
 	if (error) {
 		alert(error)
@@ -80,7 +82,8 @@ const addPerson = (name, birthday) => {
 	updateContent(getState().persons.concat({name, birthday}))
 }
 
-const editPerson = (id, name, birthday) => {
+const editPerson = (id, name, day, month, year) => {
+	const birthday = createIso(day, month, year)
 	const error = getValidationError(name, birthday)
 	if (error) {
 		alert(error)
@@ -128,7 +131,10 @@ const edit = (id) => {
 	setState({view: 'edit', editingPerson: id})
 }
 const remove = (id) => {
-	// TODO
+	if (!confirm('Delete person?')) return
+	const persons = getState().persons.filter((person) => person.id !== id)
+	setState({view: 'loading'})
+	updateContent(persons)
 }
 
 export {editPerson, resetSeen, setup}

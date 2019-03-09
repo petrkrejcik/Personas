@@ -1,6 +1,8 @@
 import {addListener} from './state.js'
 import {setState} from './state.js'
 import {editPerson, resetSeen} from './persons-model.js'
+import {parseDate} from './utils/date.js'
+import {birthdayPicker} from './components/birthday-picker.js'
 
 const ELEMENTS = {
 	overlay: {
@@ -35,17 +37,18 @@ const renderEdit = (person) => {
 	const el = document.querySelector(ELEMENTS.edit.selector)
 	el.innerHTML = ''
 	const name = document.createElement('input')
-	const birthday = document.createElement('input')
+	const [day, month, year] = birthdayPicker(parseDate(person.birthday))
 	const save = document.createElement('button')
 	const seen = document.createElement('button')
 	const cancel = document.createElement('button')
+	seen.classList.add('seen-save')
+	save.classList.add('edit-save')
 	save.innerText = 'Save'
 	seen.innerText = 'Seen today'
 	cancel.innerText = 'Cancel'
 	name.value = person.name
-	birthday.value = person.birthday
 	save.addEventListener('click', () => {
-		editPerson(person.id, name.value, birthday.value)
+		editPerson(person.id, name.value, day.value, month.value, year.value)
 	})
 	seen.addEventListener('click', () => {
 		resetSeen(person.id)
@@ -54,9 +57,11 @@ const renderEdit = (person) => {
 		setState({view: 'persons', editingPerson: null})
 	})
 	el.appendChild(name)
-	el.appendChild(birthday)
-	el.appendChild(save)
+	el.appendChild(day)
+	el.appendChild(month)
+	el.appendChild(year)
 	el.appendChild(seen)
+	el.appendChild(save)
 	el.appendChild(cancel)
 }
 

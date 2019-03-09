@@ -1,15 +1,15 @@
 body {
 	background-color: #f2f2f2;
 	margin: 0;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .persons {
-	width: 80%;
 	margin: 0 auto 10px auto;
 }
 
 .person {
+	position: relative;
 	margin-top: 5px;
 	box-shadow: 0px 1px 1px 0px #d0d0d0;
 	background-color: #fff;
@@ -47,4 +47,44 @@ body {
 
 .edit {
 	display: none;
+}
+.edit input, .edit button {
+	display: block;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.seen-save {
+	margin-bottom: 20px;
+}
+
+.edit-save {
+	background-color: #daf1ff;
+}
+
+.icon {
+	width: 15px;
+}
+
+.icon > svg {
+	fill: #aaaaaa;
+}
+
+.icon-edit {
+	position: absolute;
+	top: 10px;
+	right: 7px;
+}
+
+.icon-remove {
+	position: absolute;
+	top: 10px;
+	right: 30px;
+}
+
+@media only screen and (min-width: 600px) {
+	.persons {
+		width: 80%;
+		margin: 0 auto 10px auto;
+	}
 }
