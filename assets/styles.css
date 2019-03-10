@@ -2,6 +2,7 @@ body {
 	background-color: #f2f2f2;
 	margin: 0;
 	font-size: 18px;
+	-webkit-user-select: none; /* disable text select */
 }
 
 .persons {
@@ -65,6 +66,8 @@ body {
 
 .edit-save {
 	background-color: #daf1ff;
+	border: none;
+	padding: 15px;
 }
 
 .icon {

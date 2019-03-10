@@ -1,5 +1,6 @@
 import {birthdayPicker} from './components/birthday-picker.js'
 import ICONS from './components/icons.js'
+import {formatDMY} from './utils/date.js'
 
 const renderPersons = (persons, handleAdd) => {
 	const el = document.querySelector('.persons')
@@ -49,7 +50,8 @@ const renderText = (value) => {
 const renderBirthday = (birthday, age, daysToBirthday) => {
 	if (!birthday) return null
 	const el = document.createElement('div')
-	el.innerHTML = `Age: ${age}<br />Birthday in ${daysToBirthday} days (${birthday})`
+	const birthdayDMY = formatDMY(birthday)
+	el.innerHTML = `Age: ${age}<br />Birthday in ${daysToBirthday} days (${birthdayDMY})`
 	return el
 }
 

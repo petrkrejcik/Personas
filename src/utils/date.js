@@ -16,3 +16,8 @@ export const createIso = (day, month, year) => {
 	const m = month.padStart(2, '0')
 	return `${year}-${m}-${d}`
 }
+
+export const formatDMY = (isoDate) => {
+	const {day, month, year} = parseDate(isoDate)
+	return `${day}. ${month}. ${year}`
+}
