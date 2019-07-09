@@ -30,18 +30,18 @@ npm run build
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
 ## TODO
-[] Style `Add new`
-[] Service worker - to work offline: cache google libs; cache persons
+- [ ] Style `Add new`
+- [ ] Service worker - to work offline: cache google libs; cache persons
   - problem with hash in the filename
-[] Better error messages (e.g. after unsuccessful sync)
-[] Top bar
-[] Remove obsolete JS and CSS files after build
-[] Share persons - open URL with persons in query
-[] Back button on mobile closes the app (create a router)
-[] Pressing `Seen today` should not directly save but rather remember click and save on `Save` button
-[] Credits
+- [ ] Better error messages (e.g. after unsuccessful sync)
+- [ ] Top bar
+- [ ] Remove obsolete JS and CSS files after build
+- [ ] Share persons - open URL with persons in query
+- [ ] Back button on mobile closes the app (create a router)
+- [ ] Pressing `Seen today` should not directly save but rather remember click and save on `Save` button
+- [ ] Credits
 	`<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>`
-[] Loader
+- [ ] Loader
 
 ## Icons
 https://www.flaticon.com/packs/multimedia-collection
