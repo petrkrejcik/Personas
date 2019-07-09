@@ -4,10 +4,16 @@
 - [https://parceljs.org/getting_started.html](parcel.js)
 - Vanilla JS
 
+## Install
+```sh
+npm i
+```
+
 ## Run
 ```sh
 npm start
 ```
+
 - Open [http://localhost:1234]()
 - Turn off adBlock
 
