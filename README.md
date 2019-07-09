@@ -29,8 +29,11 @@ npm run build
 
 ##### API
 [API reference](https://developers.google.com/drive/api/v2/reference)
+
 `gapi.auth2.getAuthInstance().signIn()`
+
 `gapi.auth2.getAuthInstance().signOut()`
+
 `gapi.auth2.getAuthInstance().isSignedIn.get()`
 
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
