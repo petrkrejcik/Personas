@@ -5,19 +5,15 @@ import {ACTIONS as APP} from '/src/app/app-action.js'
 
 export const reducer = (state: Object, action: ActionT) => {
 	switch (action.type) {
-		case PERSON.EDIT: {
-				const persons = state.persons.map(person => {
-					if (!action.payload || !action.payload.id) return person
-					if (person.id !== action.payload.id) return person
-					return {
-						...person,
-						...action.payload,
-					}
-				})
-				return {
-					...state,
-					persons,
-				}
+		case PERSON.save: {
+			const persons = {
+				...state.persons,
+				[action.payload.id]: action.payload
+			}
+			return {
+				...state,
+				persons,
+			}
 		}
 		case PERSON.SET: {
 			return {
@@ -38,10 +34,13 @@ export const reducer = (state: Object, action: ActionT) => {
 				persons: state.persons.filter(person => person.id !== action.payload),
 			}
 		}
-		case PERSON.TYPE_NAME: {
+		case PERSON.edit: {
 			return {
 				...state,
-				personEditName: action.payload,
+				personEdit: {
+					...state.personEdit,
+					[action.payload.field]: action.payload.value,
+				},
 			}
 		}
 		case DATA_PROVIDER.IS_LOGGED: {

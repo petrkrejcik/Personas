@@ -10,12 +10,17 @@ const listeners = []
 let state = {
 	googleSyncEnabled: false,
 	isSignedIn: false,
-	persons: [],
+	persons: {},
 	isLoading: true,
 	view: 'loading',
 	editingPerson: null,
 	activeElement: null,
-	personEditName: '',
+	personEdit: {
+		name: '',
+		day: 1,
+		month: 1,
+		year: 1980,
+	},
 }
 
 const getState = (): Object => {
