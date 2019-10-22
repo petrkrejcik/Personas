@@ -1,10 +1,11 @@
-export const birthdayPicker = ({day, month, year}) => {
+export const birthdayPicker = ({day, month, year}, onChange) => {
 	const createOptions = (start, end, selected) => {
 		return [...Array(end + 1).keys()].slice(start).map(i => {
 			const option = document.createElement('option')
-			option.innerText = i
-			option.value = i
-			if (selected && i === selected) option.selected = true
+			const value = i + ''
+			option.innerText = value
+			option.value = value
+			if (selected && value === selected) option.selected = true
 			return option
 		})
 	}
@@ -15,5 +16,8 @@ export const birthdayPicker = ({day, month, year}) => {
 	const dayOptions = createOptions(1, 31, day).forEach(option => dayEl.appendChild(option))
 	const monthOptions = createOptions(1, 12, month).forEach(option => monthEl.appendChild(option))
 	const yearOptions = createOptions(1900, 2019, year).forEach(option => yearEl.appendChild(option))
+	dayEl.addEventListener('change', (ev) => onChange('day', ev.target.value))
+	monthEl.addEventListener('change', (ev) => onChange('month', ev.target.value))
+	yearEl.addEventListener('change', (ev) => onChange('year', ev.target.value))
 	return [dayEl, monthEl, yearEl]
 }

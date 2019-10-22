@@ -17,7 +17,7 @@ describe('Add person', () => {
 		cy.get('[data-cy=add-input--birthday] > select').eq(2).select('1990')
 		cy.get('[data-cy=add-button--save]').click()
 
-		
+		cy.get('[data-cy=person]').should('be.visible')
 
 	})
 })

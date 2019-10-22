@@ -34,7 +34,7 @@ const update = () => {
 // }
 
 const getProps = () => {
-	const persons = getState().persons
+	const persons = Object.values(getState().persons)
 		.map(person => {
 			return {
 				...person,
@@ -100,16 +100,16 @@ const addPerson = (name, day, month, year) => {
 	dispatch({type: PERSON.SYNC})
 }
 
-const editPerson = (id, name, day, month, year) => {
-	const birthday = createIso(day, month, year)
-	const error = getValidationError(name, birthday)
-	if (error) {
-		alert(error)
-		return
-	}
-	dispatch({type: PERSON.EDIT, payload: {id, name, birthday}})
-	dispatch({type: PERSON.SYNC})
-}
+// const editPerson = (id, name, day, month, year) => {
+// 	const birthday = createIso(day, month, year)
+// 	const error = getValidationError(name, birthday)
+// 	if (error) {
+// 		alert(error)
+// 		return
+// 	}
+// 	dispatch({type: PERSON.EDIT, payload: {id, name, birthday}})
+// 	dispatch({type: PERSON.SYNC})
+// }
 
 const getValidationError = (name, birthday) => {
 	if (!name) {

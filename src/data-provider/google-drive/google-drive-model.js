@@ -57,7 +57,6 @@ const fetch = () => {
 			return {
 				...person,
 				name: unescape(person.name),
-				id: Math.random().toString(36).substring(10),
 			}
 		})
 		return persons
