@@ -8,6 +8,7 @@ export const birthdayPicker = ({day, month, year}) => {
 			return option
 		})
 	}
+
 	const dayEl = document.createElement('select')
 	const monthEl = document.createElement('select')
 	const yearEl = document.createElement('select')

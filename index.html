@@ -16,14 +16,10 @@
 </head>
 
 <body>
-	<div class="persons"></div>
-	<div data-prs="overlay" class="overlay">
-		<button data-prs="googleDriveButton" class="googleDriveButton" disabled>Sync with Google Drive</button>
-		<div data-prs="loader" class="loader">loading</div>
-		<div data-prs="edit" class="edit"></div>
+	<div id='app'>
+		<div data-cy='header'>Header</div>
+		<div data-cy='loader'>Loader</div>
 	</div>
-
-	<script defer src='src/index.js' onload="prs.setup()"></script>
-	<script defer src='https://apis.google.com/js/api.js' onload="prs.googleLibLoaded();"></script>
+	<script defer src='src/index.js' onload="prs.setup()"></script>	<!-- <script defer src='https://apis.google.com/js/api.js' onload="prs.onLibLoaded();"></script> -->
 </body>
 </html>

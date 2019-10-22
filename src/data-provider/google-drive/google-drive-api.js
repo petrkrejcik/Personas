@@ -1,14 +1,14 @@
+// @flow
 const APP_FOLDER = 'App-Personas'
 const FILE_NAME = 'persons.json'
 let onSignInChangeHandler = Function
-let onUpdateHandler = Function
-let onErrorHandler = Function
 let fileId = Object
 let folderId = Object
 let defaultContent = null
 
 const init = (options = {}) => {
 	setupOptions(options)
+	console.info('👉', 'init gdrive')
 	return new Promise ((resolve, reject) => {
 		gapi.load('client:auth2', () => {
 			initClient().then(resolve)
@@ -16,10 +16,8 @@ const init = (options = {}) => {
 	})
 }
 
-const setupOptions = ({defaultContent: defaultContentOption, onError, onSignInChange, onUpdate}) => {
+const setupOptions = ({defaultContent: defaultContentOption, onSignInChange}) => {
 	if (onSignInChange) onSignInChangeHandler = onSignInChange
-	if (onUpdate) onUpdateHandler = onUpdate
-	if (onError) onErrorHandler = onError
 	if (defaultContentOption) defaultContent = defaultContentOption
 }
 
@@ -40,6 +38,7 @@ const initClient = () => {
 }
 
 const updateSignInStatus = (isLogged) => {
+	// TODO: Pass logged user instead of `isLogged`
 	onSignInChangeHandler(isLogged)
 }
 
@@ -52,6 +51,8 @@ const connect = () => {
 }
 
 const fetchData = () => {
+	// return Promise.resolve()
+
 	return getFolder()
 	.then(getFile)
 	.then(getFileContent)
@@ -151,15 +152,17 @@ const getFileContent = () => {
 		})
 		request.execute((response) => {
 			if (response.error) {
-				onErrorHandler(`Error during file download: ${response.error.message}`)
+				reject(`Error during file download: ${response.error.message}`)
 				return
 			}
+			console.log('response.result', response.result);
 			resolve(response.result)
 		})
 	})
 }
 
-const updateContent = (content) => {
+const save = (content) => {
+	console.info('👉', 'API save')
 	return new Promise ((resolve, reject) => {
 		const request = gapi.client.request({
 			path: '/upload/drive/v2/files/' + fileId,
@@ -169,11 +172,10 @@ const updateContent = (content) => {
 		})
 		request.execute((response) => {
 			if (response.error) {
-				onErrorHandler(`Error during sync: ${response.error.message}`)
+				reject(`Error during sync: ${response.error.message}`)
 				return
 			}
 			getFileContent().then((fileContent) => {
-				onUpdateHandler(fileContent)
 				resolve(fileContent)
 			})
 		})
@@ -184,5 +186,5 @@ export {
 	connect,
 	fetchData,
 	init,
-	updateContent,
+	save,
 }

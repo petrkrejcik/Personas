@@ -7,13 +7,19 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --global prs",
-    "build": "parcel build index.html --global prs --out-dir docs --public-url /personas/"
+    "build": "parcel build index.html --global prs --out-dir docs --public-url /personas/",
+    "test": "npx cypress open"
   },
   "browserslist": [
     "last 1 Chrome version"
   ],
   "devDependencies": {
     "cssnano": "^4.1.10",
+    "cypress": "^3.4.1",
+    "flow-bin": "^0.102.0",
     "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "src": "^1.1.2"
   }
 }

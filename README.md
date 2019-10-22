@@ -24,6 +24,11 @@ npm run build
 - Will build app into `/docs` folder with publish URL set to `/personas`.
 - Just commit this dir on GitHub and it will work on https://petrkrejcik.github.io/personas
 
+## How it works
+- Router creates components to display based on URL.
+- Component model takes data from store and converts them to props for view.
+- Components are divided into two layers - model and view.
+
 #### Google Drive API Console
 [Google Console](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
 
@@ -38,7 +43,17 @@ npm run build
 
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
+## Flow
+1. Response from server with HTML containing loading state
+1. Lookup in local storage for used storage (GDrive/local/none)
+1. (if storage selected) Fetch library for working with current storage
+1. (if storage selected) Fetch data from the storage
+1. Show data or empty screen
+
 ## TODO
+- [ ] Add new data provider
+  - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one
+  who will managed the connection to API/local database
 - [ ] Style `Add new`
 - [ ] Service worker - to work offline: cache google libs; cache persons
   - problem with hash in the filename
@@ -54,3 +69,6 @@ npm run build
 
 ## Icons
 https://www.flaticon.com/packs/multimedia-collection
+
+## UI
+https://onsen.io/

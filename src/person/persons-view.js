@@ -1,18 +1,31 @@
-import {birthdayPicker} from './components/birthday-picker.js'
-import ICONS from './components/icons.js'
-import {formatDMY} from './utils/date.js'
+// @flow
+import {birthdayPicker} from '/src/components/birthday-picker.js'
+import ICONS from '/src/components/icons.js'
+import {formatDMY} from '/src/utils/date.js'
 
 const renderPersons = (persons, handleAdd) => {
-	const el = document.querySelector('.persons')
+	const el = document.createElement('div')
+	el.classList.add('persons')
+	el.setAttribute('data-cy', 'persons')
 	persons
 		.map(renderPerson)
 		.forEach(person => el.appendChild(person))
 	el.appendChild(renderAdd(handleAdd))
+	return el
+}
+
+const renderEmpty = () => {
+	const el = document.createElement('div')
+	el.classList.add('personsEmpty')
+	el.setAttribute('data-cy', 'personsEmpty')
+	el.innerText = 'No persons created yet.'
+	return el
 }
 
 const renderPerson = (person) => {
 	const el = document.createElement('div')
 	el.classList.add('person')
+	el.setAttribute('data-cy', 'person')
 	const fields = [
 		renderTitle(person.name),
 		renderBirthday(person.birthday, person.age, person.daysToBirthday),
@@ -28,6 +41,7 @@ const renderPerson = (person) => {
 	remove.classList.add('icon-remove', 'icon')
 	edit.addEventListener('click', person.handleEdit.bind(null, person.id))
 	remove.addEventListener('click', person.handleRemove.bind(null, person.id))
+	remove.setAttribute('data-cy', 'remove')
 	edit.innerHTML = ICONS.edit
 	remove.innerHTML = ICONS.remove
 	el.appendChild(remove)
@@ -70,6 +84,7 @@ const renderCustomTexts = (values) => {
 
 const clearPersons = () => {
 	const el = document.querySelector('.persons')
+	if (!el) return
 	el.innerHTML = ''
 }
 
@@ -91,4 +106,11 @@ const renderAdd = (handleAdd) => {
 	return el
 }
 
-export {clearPersons, renderPersons}
+export default function render (props: Object) {
+	clearPersons() // TODO: clean when necessary
+	if (props.persons.length) {
+		return renderPersons(props.persons)
+	} else {
+		return renderEmpty()
+	}
+}

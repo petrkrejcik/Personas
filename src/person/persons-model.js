@@ -1,23 +1,40 @@
-import {addListener, getState, setState} from './state.js'
-import {updateContent} from './google-drive-api.js'
-import * as view from './persons-view.js'
-import {createIso} from './utils/date.js'
+import {subscribe, dispatch, getState} from '/src/store/store.js'
+import * as view from '/src/person/persons-view.js'
+import {createIso} from '/src/utils/date.js'
+import {ACTIONS as DATA_PROVIDER} from '/src/data-provider/actions.js'
+import {ACTIONS as PERSON} from '/src/person/person-actions.js'
 
 const setup = () => {
-	addListener(update)
+	subscribe(update)
 }
 
 const update = () => {
 	updatePersons()
 }
 
-const updatePersons = () => {
-	view.clearPersons()
-	renderPersons(getState().persons)
-}
+// const updatePersons = () => {
+// 	view.clearPersons()
+// 	renderPersons(getState().persons)
+// }
 
-const renderPersons = (persons) => {
-	const personsView = persons
+// const renderPersons = (persons) => {
+// 	const personsView = persons
+// 		.map(person => {
+// 			return {
+// 				...person,
+// 				age: getAge(person.birthday),
+// 				daysToBirthday: getDaysToBirthday(person.birthday),
+// 				seenBefore: getSeenBefore(person.seen),
+// 				handleEdit: edit,
+// 				handleRemove: remove,
+// 			}
+// 		})
+// 		.sort(sortByBirthday)
+// 	view.renderPersons(personsView, addPerson)
+// }
+
+const getProps = () => {
+	const persons = getState().persons
 		.map(person => {
 			return {
 				...person,
@@ -29,7 +46,7 @@ const renderPersons = (persons) => {
 			}
 		})
 		.sort(sortByBirthday)
-	view.renderPersons(personsView, addPerson)
+	return {persons}
 }
 
 const sortByBirthday = (personA, personB) => {
@@ -78,8 +95,9 @@ const addPerson = (name, day, month, year) => {
 		alert(error)
 		return
 	}
-	setState({view: 'loading'})
-	updateContent(getState().persons.concat({name, birthday}))
+	const payload = {name, birthday}
+	dispatch({type: PERSON.ADD, payload})
+	dispatch({type: PERSON.SYNC})
 }
 
 const editPerson = (id, name, day, month, year) => {
@@ -89,16 +107,8 @@ const editPerson = (id, name, day, month, year) => {
 		alert(error)
 		return
 	}
-	const persons = getState().persons.map(person => {
-		if (person.id !== id) return person
-		return {
-			...person,
-			name,
-			birthday
-		}
-	})
-	setState({view: 'loading'})
-	updateContent(persons)
+	dispatch({type: PERSON.EDIT, payload: {id, name, birthday}})
+	dispatch({type: PERSON.SYNC})
 }
 
 const getValidationError = (name, birthday) => {
@@ -123,18 +133,17 @@ const resetSeen = (id) => {
 			seen: `${year}-${month}-${day}`,
 		}
 	})
-	setState({view: 'loading'})
-	updateContent(persons)
+	dispatch({type: PERSON.SYNC})
 }
 
 const edit = (id) => {
-	setState({view: 'edit', editingPerson: id})
+	// setState({view: 'edit', editingPerson: id})
 }
 const remove = (id) => {
 	if (!confirm('Delete person?')) return
-	const persons = getState().persons.filter((person) => person.id !== id)
-	setState({view: 'loading'})
-	updateContent(persons)
+	dispatch({type: PERSON.REMOVE, payload: id})
+	dispatch({type: PERSON.SYNC})
 }
 
-export {editPerson, resetSeen, setup}
+// export {getProps, editPerson, resetSeen, setup}
+export {getProps}
