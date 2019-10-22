@@ -1,8 +1,8 @@
-import {addListener} from './state.js'
-import {setState} from './state.js'
-import {editPerson, resetSeen} from './persons-model.js'
-import {parseDate} from './utils/date.js'
-import {birthdayPicker} from './components/birthday-picker.js'
+import {subscribe} from '/src/store/store.js'
+import {setState} from '/src/store/store.js'
+import {editPerson, resetSeen} from '/src/person/persons-model.js'
+import {parseDate} from '/src/utils/date.js'
+import {birthdayPicker} from '/src/components/birthday-picker.js'
 
 const ELEMENTS = {
 	overlay: {
@@ -23,7 +23,7 @@ const ELEMENTS = {
 	},
 }
 
-const update = (state) => {
+const update = () => {
 	showElement(ELEMENTS.loader, state.view === 'loading')
 	showElement(ELEMENTS.singIn, state.view === 'signIn')
 	showElement(ELEMENTS.edit, state.view === 'edit')
@@ -71,5 +71,5 @@ const showElement = (element, show) => {
 }
 
 export const setup = () => {
-	addListener(update)
+	// subscribe(update)
 }
