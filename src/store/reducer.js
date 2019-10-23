@@ -1,7 +1,7 @@
 // @flow
-import {ACTIONS as PERSON} from '/src/person/person-actions.js'
-import {ACTIONS as DATA_PROVIDER} from '/src/data-provider/actions.js'
-import {ACTIONS as APP} from '/src/app/app-action.js'
+import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
+import {ACTIONS as APP} from '/app/app-action.js'
 
 export const reducer = (state: Object, action: ActionT) => {
 	switch (action.type) {

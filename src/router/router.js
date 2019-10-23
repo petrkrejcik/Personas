@@ -1,17 +1,17 @@
 // @flow
-import {subscribe, dispatch, getState} from '/src/store/store.js'
-import {ACTIONS as DATA_PROVIDER} from '/src/data-provider/actions.js'
-import Login from '/src/login/login-view.js'
-import Header from '/src/header/header.js'
-import Persons from '/src/person/persons-view.js'
-import Add from '/src/person/person-add.js'
-import {ROUTES} from '/src/router/routes.js'
-import {ACTIONS} from '/src/router/router-actions.js'
-import {getProps as getPersons} from '/src/person/persons-model.js'
-import {getActiveElement} from '/src/app/app-action.js'
+import {subscribe, dispatch, getState} from '/store/store.js'
+import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
+import Login from '/login/login-view.js'
+import Header from '/header/header.js'
+import Persons from '/person/persons-view.js'
+import Add from '/person/person-add.js'
+import {ROUTES} from '/router/routes.js'
+import {ACTIONS} from '/router/router-actions.js'
+import {getProps as getPersons} from '/person/persons-model.js'
+import {getActiveElement} from '/app/app-action.js'
 
 const getRoute = () => {
-	return window.location.pathname
+	return window.location.pathname.substring(1).split('/')[0]
 }
 
 const go = path => {
@@ -35,6 +35,13 @@ const route = action => {
 			break;
 		}
 		case ROUTES.add: {
+			body.push(
+				Header(),
+				Add(),
+			)
+			break;
+		}
+		case ROUTES.edit: {
 			body.push(
 				Header(),
 				Add(),

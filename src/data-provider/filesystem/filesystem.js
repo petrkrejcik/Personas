@@ -1,6 +1,6 @@
 // @flow
-import {dispatch, subscribe, getState} from '/src/store/store.js'
-import {ACTIONS as PERSON} from '/src/person/person-actions.js'
+import {dispatch, subscribe, getState} from '/store/store.js'
+import {ACTIONS as PERSON} from '/person/person-actions.js'
 
 export default function(options): DataProviderT {
 	return {

@@ -1,4 +1,4 @@
-import {getState} from '/src/store/store.js'
+import {getState} from '/store/store.js'
 
 export const ACTIONS = {
   setActiveElement: 'utils/set-active-element',

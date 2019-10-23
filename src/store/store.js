@@ -1,5 +1,5 @@
 // @flow
-import {reducer} from '/src/store/reducer.js'
+import {reducer} from '/store/reducer.js'
 
 type ActionT = {
 	type: string,
@@ -17,9 +17,9 @@ let state = {
 	activeElement: null,
 	personEdit: {
 		name: '',
-		day: 1,
-		month: 1,
-		year: 1980,
+		day: '1',
+		month: '1',
+		year: '1980',
 	},
 }
 
@@ -36,7 +36,7 @@ const setState = (newState: Object) => {
 
 const dispatch = (action: ActionT) => {
 	const state = getState()
-	console.log('🔊', action.type, action.payload)
+	// console.log('🔊', action.type, action.payload)
 	if (!action.type) return
 	const newState = reducer(state, action)
 	setState(newState)

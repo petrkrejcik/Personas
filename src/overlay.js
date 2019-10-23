@@ -1,8 +1,8 @@
-import {subscribe} from '/src/store/store.js'
-import {setState} from '/src/store/store.js'
-import {editPerson, resetSeen} from '/src/person/persons-model.js'
-import {parseDate} from '/src/utils/date.js'
-import {birthdayPicker} from '/src/components/birthday-picker.js'
+import {subscribe} from '/store/store.js'
+import {setState} from '/store/store.js'
+import {editPerson, resetSeen} from '/person/persons-model.js'
+import {parseDate} from '/utils/date.js'
+import {birthdayPicker} from '/components/birthday-picker.js'
 
 const ELEMENTS = {
 	overlay: {
