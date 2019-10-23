@@ -1,5 +1,5 @@
-import {dispatch, getState} from '/src/store/store.js'
-import {goToAdd} from '/src/router/router-actions.js'
+import {dispatch, getState} from '/store/store.js'
+import {goToAdd} from '/router/router-actions.js'
 
 export default function render () {
 	const el = document.createElement('div')

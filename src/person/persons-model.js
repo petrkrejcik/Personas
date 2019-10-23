@@ -1,8 +1,9 @@
-import {subscribe, dispatch, getState} from '/src/store/store.js'
-import * as view from '/src/person/persons-view.js'
-import {createIso} from '/src/utils/date.js'
-import {ACTIONS as DATA_PROVIDER} from '/src/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/src/person/person-actions.js'
+import {subscribe, dispatch, getState} from '/store/store.js'
+import * as view from '/person/persons-view.js'
+import {createIso} from '/utils/date.js'
+import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
+import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {goToEdit} from '/router/router-actions.js'
 
 const setup = () => {
 	subscribe(update)
@@ -41,7 +42,8 @@ const getProps = () => {
 				age: getAge(person.birthday),
 				daysToBirthday: getDaysToBirthday(person.birthday),
 				seenBefore: getSeenBefore(person.seen),
-				handleEdit: edit,
+				// handleEdit: edit,
+				handleEdit: (id) => dispatch(goToEdit(id)),
 				handleRemove: remove,
 			}
 		})
@@ -88,17 +90,17 @@ const getDaysToBirthday = (isoDate) => {
 	return days
 }
 
-const addPerson = (name, day, month, year) => {
-	const birthday = createIso(day, month, year)
-	const error = getValidationError(name, birthday)
-	if (error) {
-		alert(error)
-		return
-	}
-	const payload = {name, birthday}
-	dispatch({type: PERSON.ADD, payload})
-	dispatch({type: PERSON.SYNC})
-}
+// const addPerson = (name, day, month, year) => {
+// 	const birthday = createIso(day, month, year)
+// 	const error = getValidationError(name, birthday)
+// 	if (error) {
+// 		alert(error)
+// 		return
+// 	}
+// 	const payload = {name, birthday}
+// 	dispatch({type: PERSON.ADD, payload})
+// 	dispatch({type: PERSON.SYNC})
+// }
 
 // const editPerson = (id, name, day, month, year) => {
 // 	const birthday = createIso(day, month, year)

@@ -1,7 +1,7 @@
 // @flow
-import {dispatch, getState, subscribe} from '/src/store/store.js'
-import {ACTIONS} from '/src/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/src/person/person-actions.js'
+import {dispatch, getState, subscribe} from '/store/store.js'
+import {ACTIONS} from '/data-provider/actions.js'
+import {ACTIONS as PERSON} from '/person/person-actions.js'
 
 const GDRIVE = 'gdrive'
 

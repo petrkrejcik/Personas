@@ -1,17 +1,18 @@
-import {dispatch, getState} from '/src/store/store.js'
-import {birthdayPicker} from '/src/components/birthday-picker.js'
-import {save} from '/src/person/person-actions.js'
-import {edit} from '/src/person/person-actions.js'
-import {storeActiveElement} from '/src/app/app-action.js'
-import {goToHome} from '/src/router/router-actions.js'
+import {dispatch, getState} from '/store/store.js'
+import {birthdayPicker} from '/components/birthday-picker.js'
+import {save} from '/person/person-actions.js'
+import {edit} from '/person/person-actions.js'
+import {storeActiveElement} from '/app/app-action.js'
+import {goToHome} from '/router/router-actions.js'
+import {createIso} from '/utils/date.js'
 
 export default function render () {
 	const el = document.createElement('div')
-	const person = getState().personEdit
+	const {personEdit} = getState()
 	const content = [
-		renderName(person.name),
-		renderPicker(person.day, person.month, person.year),
-		renderSave(person),
+		renderName(personEdit.name),
+		renderPicker(personEdit.day, personEdit.month, personEdit.year),
+		renderSave(personEdit),
 	]
 	content.map((c) => el.appendChild(c))
 	return el
@@ -44,12 +45,17 @@ const renderPicker = (day, month, year) => {
 	return el
 }
 
-const renderSave = (person) => {
+const renderSave = (personEdit) => {
 	const el = document.createElement('button')
 	el.innerText = 'Save'
 	el.addEventListener('click', () => {
-		const id = Math.random().toString(36).substring(10)
-		dispatch(save({id, ...person}))
+		const {day, month, year, ...personRest} = personEdit
+		const person = {
+			id: Math.random().toString(36).substring(10),
+			...personRest,
+			birthday: createIso(day, month, year),
+		}
+		dispatch(save(person))
 		dispatch(goToHome())
 	})
 	el.classList.add('add-button--save')

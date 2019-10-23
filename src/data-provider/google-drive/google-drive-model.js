@@ -1,8 +1,8 @@
 // @flow
-import {connect as connectGoogle, fetchData, init, save as apiSave} from '/src/data-provider/google-drive/google-drive-api.js'
-import {dispatch, subscribe, getState} from '/src/store/store.js'
-import {ACTIONS as DATA_PROVIDER} from '/src/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/src/person/person-actions.js'
+import {connect as connectGoogle, fetchData, init, save as apiSave} from '/data-provider/google-drive/google-drive-api.js'
+import {dispatch, subscribe, getState} from '/store/store.js'
+import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
+import {ACTIONS as PERSON} from '/person/person-actions.js'
 
 const setup = () => {
 	subscribe(action => {

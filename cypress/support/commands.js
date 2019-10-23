@@ -23,3 +23,8 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import {save} from 'src/person/person-actions.js'
+
+Cypress.Commands.add('addPerson', (person) => {
+	cy.window().its('store').invoke('dispatch', save(person))
+})

@@ -20,7 +20,6 @@ let polyfill
 
 // grab fetch polyfill from remote URL, could be also from a local package
 before(() => {
-  console.log('before');
   const polyfillUrl = 'https://unpkg.com/unfetch/dist/unfetch.umd.js'
   cy.request(polyfillUrl)
   .then((response) => {
@@ -29,7 +28,6 @@ before(() => {
 })
 
 beforeEach(() => {
-  console.log('beforeEach');
   cy.server()
   const gapi = cy.readFile('cypress/fixtures/gapi.js')
   .then((gapi) => {
