@@ -1,7 +1,7 @@
-// @flow
 import {birthdayPicker} from '/components/birthday-picker.js'
 import ICONS from '/components/icons.js'
 import {formatDMY} from '/utils/date.js'
+import {addTestAttribute} from '/utils/dom'
 
 const renderPersons = (persons) => {
 	const el = document.createElement('div')
@@ -24,7 +24,7 @@ const renderEmpty = () => {
 const renderPerson = (person) => {
 	const el = document.createElement('div')
 	el.classList.add('person')
-	el.setAttribute('data-cy', 'person')
+	addTestAttribute(el, `person-${person.id}`)
 	const fields = [
 		renderTitle(person.name),
 		renderBirthday(person),
@@ -38,10 +38,10 @@ const renderPerson = (person) => {
 	const remove = document.createElement('div')
 	edit.classList.add('icon-edit', 'icon')
 	remove.classList.add('icon-remove', 'icon')
-	edit.addEventListener('click', person.handleEdit.bind(null, person.id))
-	// edit.addEventListener('click', () => dispatch(edit(person.id)))
+	edit.addEventListener('click', person.onEditClick.bind(null, person.id))
 	remove.addEventListener('click', person.handleRemove.bind(null, person.id))
-	remove.setAttribute('data-cy', 'remove')
+	addTestAttribute(edit, 'edit')
+	addTestAttribute(remove, 'remove')
 	edit.innerHTML = ICONS.edit
 	remove.innerHTML = ICONS.remove
 	el.appendChild(remove)
@@ -52,6 +52,7 @@ const renderPerson = (person) => {
 const renderTitle = (value) => {
 	const el = renderText(value)
 	el.classList.add('person-title')
+	addTestAttribute(el, 'title')
 	return el
 }
 
@@ -64,6 +65,7 @@ const renderText = (value) => {
 const renderBirthday = ({birthday, age, daysToBirthday}) => {
 	if (!birthday) return null
 	const el = document.createElement('div')
+	addTestAttribute(el, 'birthday')
 	const birthdayDMY = formatDMY(birthday)
 	el.innerHTML = `Age: ${age}<br />Birthday in ${daysToBirthday} days (${birthdayDMY})`
 	return el
@@ -88,11 +90,11 @@ const clearPersons = () => {
 	el.innerHTML = ''
 }
 
-export default function render (props: Object) {
+export default function render (props) {
 	clearPersons() // TODO: clean when necessary
 	if (props.persons.length) {
 		return renderPersons(props.persons)
-	} else {
-		return renderEmpty()
-	}
+	} 
+	return renderEmpty()
+	
 }

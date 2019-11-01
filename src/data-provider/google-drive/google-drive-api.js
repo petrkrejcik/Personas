@@ -1,4 +1,3 @@
-// @flow
 const APP_FOLDER = 'App-Personas'
 const FILE_NAME = 'persons.json'
 let onSignInChangeHandler = Function
@@ -16,7 +15,7 @@ const init = (options = {}) => {
 	})
 }
 
-const setupOptions = ({defaultContent: defaultContentOption, onSignInChange}) => {
+const setupOptions = ({defaultContent, onSignInChange}) => {
 	if (onSignInChange) onSignInChangeHandler = onSignInChange
 	if (defaultContentOption) defaultContent = defaultContentOption
 }
@@ -27,7 +26,7 @@ const initClient = () => {
 			'apiKey': 'AIzaSyBYItpNT8k2Y2AEHz2E2kI2EqMULh5C4m0',
 			'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
 			'clientId': '614338309616-st9nui22tf3sa1cm9m1l3nd439n50frg.apps.googleusercontent.com',
-			'scope': 'https://www.googleapis.com/auth/drive.file'
+			'scope': 'https://www.googleapis.com/auth/drive.file',
 		})
 		.then(() => {
 			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
@@ -79,7 +78,7 @@ const createFolder = () => {
 	return new Promise ((resolve, reject) => {
 		const metadata = {
 			name: APP_FOLDER,
-			mimeType: 'application/vnd.google-apps.folder'
+			mimeType: 'application/vnd.google-apps.folder',
 		}
 		const request = gapi.client.drive.files.create({resource: metadata})
 		request.execute((response) => {
@@ -108,7 +107,7 @@ const createFile = () => {
 	return new Promise ((resolve, reject) => {
 		const boundary = '-------314159265358979323846'
 		const delimiter = "\r\n--" + boundary + "\r\n"
-		const close_delim = "\r\n--" + boundary + "--"
+		const closeDelim = "\r\n--" + boundary + "--"
 
 		const contentType = 'application/json'
 
@@ -125,16 +124,16 @@ const createFile = () => {
 			delimiter +
 			'Content-Type: ' + contentType + '\r\n\r\n' +
 			(defaultContent ? JSON.stringify(defaultContent) : '') +
-			close_delim
+			closeDelim
 
 		const request = gapi.client.request({
 			'path': '/upload/drive/v3/files',
 			'method': 'POST',
 			'params': {'uploadType': 'multipart'},
 			'headers': {
-			  'Content-Type': 'multipart/related; boundary="' + boundary + '"'
+			  'Content-Type': 'multipart/related; boundary="' + boundary + '"',
 			},
-			'body': multipartRequestBody
+			'body': multipartRequestBody,
 		})
 
 		request.execute((response) => {

@@ -1,10 +1,9 @@
-// @flow
 import {subscribe, dispatch, getState} from '/store/store.js'
 import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
 import Login from '/login/login-view.js'
 import Header from '/header/header.js'
 import Persons from '/person/persons-view.js'
-import Add from '/person/person-add.js'
+import AddEdit from '/person/person-add.ts'
 import {ROUTES} from '/router/routes.js'
 import {ACTIONS} from '/router/router-actions.js'
 import {getProps as getPersons} from '/person/persons-model.js'
@@ -37,14 +36,14 @@ const route = action => {
 		case ROUTES.add: {
 			body.push(
 				Header(),
-				Add(),
+				AddEdit(),
 			)
 			break;
 		}
 		case ROUTES.edit: {
 			body.push(
 				Header(),
-				Add(),
+				AddEdit(),
 			)
 			break;
 		}

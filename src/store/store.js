@@ -1,10 +1,4 @@
-// @flow
 import {reducer} from '/store/reducer.js'
-
-type ActionT = {
-	type: string,
-	payload?: any,
-}
 
 const listeners = []
 let state = {
@@ -13,28 +7,22 @@ let state = {
 	persons: {},
 	isLoading: true,
 	view: 'loading',
-	editingPerson: null,
 	activeElement: null,
-	personEdit: {
-		name: '',
-		day: '1',
-		month: '1',
-		year: '1980',
-	},
+	personEdit: {},
 }
 
-const getState = (): Object => {
+const getState = () => {
 	return state
 }
 
-const setState = (newState: Object) => {
+const setState = (newState) => {
 	state = {
 		...state,
 		...newState,
 	}
 }
 
-const dispatch = (action: ActionT) => {
+const dispatch = (action) => {
 	const state = getState()
 	// console.log('🔊', action.type, action.payload)
 	if (!action.type) return
@@ -45,7 +33,7 @@ const dispatch = (action: ActionT) => {
 	})
 }
 
-const subscribe = (callback: Function) => {
+const subscribe = (callback) => {
 	listeners.push(callback)
 }
 

@@ -1,9 +1,16 @@
 import {subscribe, dispatch, getState} from '/store/store.js'
 import * as view from '/person/persons-view.js'
-import {createIso} from '/utils/date.js'
+import {createIso, parseDate} from '/utils/date.js'
 import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {editPerson, ACTIONS as PERSON} from '/person/person-actions.js'
 import {goToEdit} from '/router/router-actions.js'
+
+export const DEFAULTS = {
+	name: '',
+	day: '1',
+	month: '1',
+	year: '1980',
+}
 
 const setup = () => {
 	subscribe(update)
@@ -34,7 +41,7 @@ const update = () => {
 // 	view.renderPersons(personsView, addPerson)
 // }
 
-const getProps = () => {
+export const getProps = () => {
 	const persons = Object.values(getState().persons)
 		.map(person => {
 			return {
@@ -42,8 +49,16 @@ const getProps = () => {
 				age: getAge(person.birthday),
 				daysToBirthday: getDaysToBirthday(person.birthday),
 				seenBefore: getSeenBefore(person.seen),
-				// handleEdit: edit,
-				handleEdit: (id) => dispatch(goToEdit(id)),
+				onEditClick: id => {
+					// TODO: Move to separate function
+					const person = getState().persons[id]
+					let {day, month, year} = parseDate(person.birthday)
+					day = day + ''
+					month = month + ''
+					year = year + ''
+					dispatch(editPerson({...person, day, month, year}))
+					dispatch(goToEdit(id))
+				},
 				handleRemove: remove,
 			}
 		})
@@ -146,6 +161,3 @@ const remove = (id) => {
 	dispatch({type: PERSON.REMOVE, payload: id})
 	dispatch({type: PERSON.SYNC})
 }
-
-// export {getProps, editPerson, resetSeen, setup}
-export {getProps}

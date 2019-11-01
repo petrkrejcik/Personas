@@ -72,3 +72,42 @@ https://www.flaticon.com/packs/multimedia-collection
 
 ## UI
 https://onsen.io/
+
+## Limits
+- Person's name has to be unique.
+
+## Vanilla.js challenges
+- Routing
+- Rendering and updating of components
+- Removing `data-cy` attributes from elements
+
+## Decisions
+### Do not use absolute paths
+- It's a non-standard and only Parcel.js understands that by default. 
+- Problem with Typescript - cannot find modules.
+- Problem when Cypress imports file. Has to be hacked:
+```
+const pathmodify = require('pathmodify')
+
+const stripSlash = data => {
+	const absolutePath = __dirname.slice(0, 8)
+	if (data.id && data.id[0] === '/' && !data.id.startsWith(absolutePath)) {
+		return {
+			id: data.id.slice(1)
+		}
+	}
+	return data
+}
+
+const options = browserify.defaultOptions
+options.browserifyOptions.plugin = options.browserifyOptions.plugin || [];
+options.browserifyOptions.plugin.unshift([
+	pathmodify, { mods: [stripSlash]},
+]);
+```
+
+### Use Typescript
+- IDE support worth it.
+
+### Use ESlint
+- To keep the code consistent.

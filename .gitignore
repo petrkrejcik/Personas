@@ -3,3 +3,5 @@ personas.sublime-workspace
 .cache/
 dist/
 node_modules/
+cypress/videos/
+cypress/screenshots/

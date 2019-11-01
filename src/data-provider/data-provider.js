@@ -1,4 +1,3 @@
-// @flow
 import {dispatch, getState, subscribe} from '/store/store.js'
 import {ACTIONS} from '/data-provider/actions.js'
 import {ACTIONS as PERSON} from '/person/person-actions.js'

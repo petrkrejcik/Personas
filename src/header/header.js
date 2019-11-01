@@ -1,5 +1,7 @@
 import {dispatch, getState} from '/store/store.js'
 import {goToAdd} from '/router/router-actions.js'
+import {DEFAULTS as DEFAULT_PERSON} from '/person/persons-model.js'
+import {editPerson} from '/person/person-actions.js'
 
 export default function render () {
 	const el = document.createElement('div')
@@ -31,7 +33,10 @@ const renderAdd = () => {
 	const el = document.createElement('div')
 	el.classList.add('header-button--add')
 	el.setAttribute('data-cy', 'header-button--add')
-	el.addEventListener('click', () => dispatch(goToAdd()))
+	el.addEventListener('click', () => {
+		dispatch(editPerson(DEFAULT_PERSON))
+		dispatch(goToAdd())
+	})
 	el.innerHTML = 'Add'
 	return el
 }
