@@ -1,4 +1,3 @@
-// @flow
 // import dataProvider from '/data-provider/filesystem/filesystem.js'
 import dataProvider from '/data-provider/google-drive/google-drive-model.js'
 // import dataProvider from '/data-provider/google-drive/google-drive-model.js'

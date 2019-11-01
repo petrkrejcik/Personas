@@ -1,8 +1,7 @@
-// @flow
 import {dispatch, subscribe, getState} from '/store/store.js'
 import {ACTIONS as PERSON} from '/person/person-actions.js'
 
-export default function(options): DataProviderT {
+export default function(options) {
 	return {
 		save: function () {
 		},

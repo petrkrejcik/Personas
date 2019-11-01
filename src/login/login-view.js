@@ -1,4 +1,3 @@
-// @flow
 export default function render (props) {
 	const login = document.createElement('button')
 	login.innerText = 'Login'

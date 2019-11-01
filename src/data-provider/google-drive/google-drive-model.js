@@ -1,4 +1,3 @@
-// @flow
 import {connect as connectGoogle, fetchData, init, save as apiSave} from '/data-provider/google-drive/google-drive-api.js'
 import {dispatch, subscribe, getState} from '/store/store.js'
 import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
@@ -42,7 +41,7 @@ const onSignInChange = (isSignedIn) => {
 	}
 }
 
-const save = (payload): Promise<Array<Object>> => {
+const save = (payload) => {
 	console.info('👉', 'call GDrive API from model', payload)
 	return apiSave(payload) // TODO: rejected
 }
@@ -51,7 +50,7 @@ const fetch = () => {
 	fetchData().then(response => {
 		if (!Array.isArray(response)) {
 			onError('Unknown reposonse from server')
-			return
+			return null
 		}
 		const persons = response.map(person => {
 			return {
@@ -86,7 +85,7 @@ const getGoogleSyncButton = () => {
 	return document.querySelector('button[data-prs="googleDriveButton"]')
 }
 
-export default function(options): DataProviderT {
+export default function(options) {
 	setup()
 
 	return {

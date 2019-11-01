@@ -1,4 +1,3 @@
-// @flow
 export const ACTIONS = {
 	LIB_LOADED: 'data-provider/lib-loaded',
 	SYNC_ENABLED: 'data-provider/sync-enabled',
