@@ -1,13 +1,13 @@
-import {subscribe, dispatch, getState} from '/store/store.js'
-import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
-import Login from '/login/login-view.js'
-import Header from '/header/header.js'
-import Persons from '/person/persons-view.js'
-import AddEdit from '/person/person-add.ts'
-import {ROUTES} from '/router/routes.js'
-import {ACTIONS} from '/router/router-actions.js'
-import {getProps as getPersons} from '/person/persons-model.js'
-import {getActiveElement} from '/app/app-action.js'
+import {subscribe, dispatch, getState} from '../store/store'
+import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
+import Login from '../login/login-view'
+import Header from '../header/header'
+import Persons from '../person/persons-view'
+import AddEdit from '../person/person-add'
+import {ROUTES} from '../router/routes'
+import {ACTIONS} from '../router/router-actions'
+import {getProps as getPersons} from '../person/persons-model'
+import {getActiveElement} from '../app/app-action'
 
 const getRoute = () => {
 	return window.location.pathname.substring(1).split('/')[0]

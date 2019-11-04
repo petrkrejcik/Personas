@@ -1,6 +1,7 @@
 personas.sublime-project
 personas.sublime-workspace
 .cache/
+.tmp/
 dist/
 node_modules/
 cypress/videos/

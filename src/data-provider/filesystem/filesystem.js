@@ -1,5 +1,5 @@
-import {dispatch, subscribe, getState} from '/store/store.js'
-import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {dispatch, subscribe, getState} from '../../store/store'
+import {ACTIONS as PERSON} from '../../person/person-actions'
 
 export default function(options) {
 	return {

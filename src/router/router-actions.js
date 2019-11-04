@@ -1,4 +1,4 @@
-import {ROUTES} from '/router/routes.js'
+import {ROUTES} from '../router/routes'
 
 export const ACTIONS = {
 	home: '',

@@ -1,11 +1,12 @@
-// import dataProvider from '/data-provider/filesystem/filesystem.js'
-import dataProvider from '/data-provider/google-drive/google-drive-model.js'
-// import dataProvider from '/data-provider/google-drive/google-drive-model.js'
-import {setup as setupOverlay} from '/overlay.js'
-import {setup as setupDataProvider, fetchLib} from '/data-provider/data-provider.js'
-import {ACTIONS} from '/data-provider/actions.js'
-import * as store from '/store/store.js'
-import {setup as setupRouter} from '/router/router.js'
+/// <reference path="types.d.ts" />
+
+// import dataProvider from './data-provider/filesystem/filesystem'
+import dataProvider from './data-provider/google-drive/google-drive-model'
+// import dataProvider from './data-provider/google-drive/google-drive-model'
+import {setup as setupDataProvider, fetchLib} from './data-provider/data-provider'
+import {ACTIONS} from './data-provider/actions'
+import * as store from './store/store'
+import {setup as setupRouter} from './router/router'
 
 const setup = () => {
 	fetchLib()

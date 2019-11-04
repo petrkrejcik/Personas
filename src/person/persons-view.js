@@ -1,7 +1,7 @@
-import {birthdayPicker} from '/components/birthday-picker.js'
-import ICONS from '/components/icons.js'
-import {formatDMY} from '/utils/date.js'
-import {addTestAttribute} from '/utils/dom'
+import {birthdayPicker} from '../components/birthday-picker'
+import ICONS from '../components/icons'
+import {formatDMY} from '../utils/date'
+import {addTestAttribute} from '../utils/dom'
 
 const renderPersons = (persons) => {
 	const el = document.createElement('div')

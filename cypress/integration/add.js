@@ -1,5 +1,5 @@
-import {DEFAULTS as DEFAULT_PERSON} from '/person/persons-model.js'
-import {createIso, formatDMY} from '/utils/date.js'
+import {DEFAULTS as DEFAULT_PERSON} from '../../src/person/persons-model'
+import {createIso, formatDMY} from '../../src/utils/date'
 
 describe('Add person', () => {
 	it('opens dialog', () => {
@@ -42,16 +42,7 @@ describe('Add person', () => {
 			birthday: '2000-12-02',
 		}
 		cy.addPerson(person)
-
-		// cy.get('[data-cy=header-button--add]').click()
-
-		// cy.get('[data-cy=add-input--name]').type('Foo Name')
-		// cy.get('[data-cy=add-input--birthday] > select').eq(0).select('2')
-		// cy.get('[data-cy=add-input--birthday] > select').eq(1).select('12')
-		// cy.get('[data-cy=add-input--birthday] > select').eq(2).select('2000')
-		// cy.get('[data-cy=add-button--save]').click()
-
-
+		
 		cy.get('[data-cy=person-foo-name] [data-cy=edit]').click()
 
 		cy.url().should('include', '/foo-name')

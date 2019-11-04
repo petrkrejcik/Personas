@@ -1,11 +1,12 @@
-import {dispatch, getState} from '/store/store.js'
-import {birthdayPicker} from '/components/birthday-picker.js'
-import {save, editField} from '/person/person-actions.js'
-import {storeActiveElement} from '/app/app-action.js'
-import {goToHome} from '/router/router-actions.js'
-import {createIso} from '/utils/date.js'
-import {createId} from '/person/person-util.js'
-import {addTestAttribute} from '/utils/dom'
+// @ts-check
+import {dispatch, getState} from '../store/store'
+import {birthdayPicker} from '../components/birthday-picker'
+import {save, editField} from '../person/person-actions'
+import {storeActiveElement} from '../app/app-action'
+import {goToHome} from '../router/router-actions'
+import {createIso} from '../utils/date'
+import {createId} from '../person/person-util'
+import {addTestAttribute} from '../utils/dom'
 
 export default function render () {
 	const el = document.createElement('div')
