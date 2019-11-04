@@ -1,7 +1,8 @@
-import {birthdayPicker} from '../components/birthday-picker'
+// @ts-check
 import ICONS from '../components/icons'
 import {formatDMY} from '../utils/date'
 import {addTestAttribute} from '../utils/dom'
+import { getState } from "../store/store";
 
 const renderPersons = (persons) => {
 	const el = document.createElement('div')
@@ -21,10 +22,34 @@ const renderEmpty = () => {
 	return el
 }
 
-const renderPerson = (person) => {
+const renderDeleteOverlay = person => {
+	const el = createPersonEl(person)
+	const overlay = document.createElement('div')
+	addTestAttribute(overlay, 'overlay')
+	const confirm = document.createElement('div')
+	const cancel = document.createElement('div')
+	confirm.addEventListener('click', person.remove.bind(null, person.id))
+	cancel.addEventListener('click', person.cancelRemove.bind(null, null))
+	addTestAttribute(confirm, 'confirm')
+	addTestAttribute(cancel, 'cancel')
+	confirm.innerHTML = 'Confirm'
+	cancel.innerHTML = 'Cancel'
+	overlay.appendChild(confirm)
+	overlay.appendChild(cancel)
+	el.appendChild(overlay)
+	return el
+}
+
+const createPersonEl = person => {
 	const el = document.createElement('div')
 	el.classList.add('person')
 	addTestAttribute(el, `person-${person.id}`)
+	return el
+}
+
+const renderPerson = person => {
+	if (getState().deleteOverlayId === person.id) return renderDeleteOverlay(person)
+	const el = createPersonEl(person)
 	const fields = [
 		renderTitle(person.name),
 		renderBirthday(person),
@@ -39,7 +64,7 @@ const renderPerson = (person) => {
 	edit.classList.add('icon-edit', 'icon')
 	remove.classList.add('icon-remove', 'icon')
 	edit.addEventListener('click', person.onEditClick.bind(null, person.id))
-	remove.addEventListener('click', person.handleRemove.bind(null, person.id))
+	remove.addEventListener('click', person.onRemoveClick.bind(null, person.id))
 	addTestAttribute(edit, 'edit')
 	addTestAttribute(remove, 'remove')
 	edit.innerHTML = ICONS.edit

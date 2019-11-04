@@ -1,3 +1,4 @@
+// @ts-check
 export const ACTIONS = {
 	editField: 'person/editField', // when typing in add/edit fields
 	editPerson: 'person/editPerson', // when setting all fields to edit
@@ -7,6 +8,7 @@ export const ACTIONS = {
 	SET: 'person/set', // when setting from remote storage
 	ADD: 'person/add',
 	REMOVE: 'person/remove',
+	TOGGLE_DELETE_OVERLAY: 'person/toggleDeleteOverlay',
 }
 
 export const editField = (field, value) => ({type: ACTIONS.editField, payload: {field, value}})
