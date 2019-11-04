@@ -1,6 +1,6 @@
-import {ACTIONS as PERSON} from '/person/person-actions.js'
-import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
-import {ACTIONS as APP} from '/app/app-action.js'
+import {ACTIONS as PERSON} from '../person/person-actions'
+import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
+import {ACTIONS as APP} from '../app/app-action'
 
 export const reducer = (state, action) => {
 	switch (action.type) {

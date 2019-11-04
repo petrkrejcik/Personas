@@ -1,20 +1,43 @@
-import {reducer} from '/store/reducer.js'
+// @ts-check
+import {reducer} from './reducer'
 
 const listeners = []
+
+/**
+ * @typedef {Object} PersonEdit
+ * @property {string} name
+ * @property {string} day
+ * @property {string} month
+ * @property {string} year
+ */
+
+
+/**
+ * @typedef {Object} State
+ * @property {PersonEdit} personEdit
+ * @property {any} activeElement
+ * @property {Object} persons
+ */
 let state = {
-	googleSyncEnabled: false,
-	isSignedIn: false,
+	// googleSyncEnabled: false,
+	// isSignedIn: false,
 	persons: {},
-	isLoading: true,
-	view: 'loading',
+	// isLoading: true,
+	// view: 'loading',
 	activeElement: null,
-	personEdit: {},
+	personEdit: null,
 }
 
+/**
+ * @returns {State}
+ */
 const getState = () => {
 	return state
 }
 
+/**
+ * @param {State} newState
+ */
 const setState = (newState) => {
 	state = {
 		...state,

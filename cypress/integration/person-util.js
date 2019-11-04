@@ -1,6 +1,6 @@
-import {createId} from '/person/person-util.js'
+import {createId} from '../../src/person/person-util'
 
-describe.only('Person util', () => {
+describe('Person util', () => {
 	it('creates id', () => {
 		const results = [
 			['Foo', 'foo'],

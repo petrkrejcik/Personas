@@ -1,7 +1,7 @@
-import {dispatch, getState} from '/store/store.js'
-import {goToAdd} from '/router/router-actions.js'
-import {DEFAULTS as DEFAULT_PERSON} from '/person/persons-model.js'
-import {editPerson} from '/person/person-actions.js'
+import {dispatch, getState} from '../store/store'
+import {goToAdd} from '../router/router-actions'
+import {DEFAULTS as DEFAULT_PERSON} from '../person/persons-model'
+import {editPerson} from '../person/person-actions'
 
 export default function render () {
 	const el = document.createElement('div')

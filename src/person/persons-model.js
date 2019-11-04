@@ -1,9 +1,9 @@
-import {subscribe, dispatch, getState} from '/store/store.js'
-import * as view from '/person/persons-view.js'
-import {createIso, parseDate} from '/utils/date.js'
-import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
-import {editPerson, ACTIONS as PERSON} from '/person/person-actions.js'
-import {goToEdit} from '/router/router-actions.js'
+import {subscribe, dispatch, getState} from '../store/store'
+import * as view from '../person/persons-view'
+import {createIso, parseDate} from '../utils/date'
+import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
+import {editPerson, ACTIONS as PERSON} from '../person/person-actions'
+import {goToEdit} from '../router/router-actions'
 
 export const DEFAULTS = {
 	name: '',

@@ -1,6 +1,6 @@
-import {dispatch, getState, subscribe} from '/store/store.js'
-import {ACTIONS} from '/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {dispatch, getState, subscribe} from '../store/store'
+import {ACTIONS} from '../data-provider/actions'
+import {ACTIONS as PERSON} from '../person/person-actions'
 
 const GDRIVE = 'gdrive'
 
@@ -10,7 +10,7 @@ const getSelectedStorage = () => {
 
 export function setup(dataProviderFactory) {
 	const dataProvider = dataProviderFactory({
-		onReady: () => dispatch(ACTIONS.FETCH),
+		onReady: () => dispatch(PERSON.FETCH),
 	})
 	subscribe(async action => {
 		switch (action.type) {

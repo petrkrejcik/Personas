@@ -20,24 +20,24 @@ let polyfill
 
 // grab fetch polyfill from remote URL, could be also from a local package
 before(() => {
-  const polyfillUrl = 'https://unpkg.com/unfetch/dist/unfetch.umd.js'
-  cy.request(polyfillUrl)
+	const polyfillUrl = 'https://unpkg.com/unfetch/dist/unfetch.umd.js'
+	cy.request(polyfillUrl)
   .then((response) => {
-    polyfill = response.body
+  	polyfill = response.body
   })
 })
 
 beforeEach(() => {
-  cy.server()
-  const gapi = cy.readFile('cypress/fixtures/gapi.js')
+	cy.server()
+	const gapi = cy.readFile('cypress/fixtures/gapi.js')
   .then((gapi) => {
-    cy.route('https://apis.google.com/js/api.js', gapi)
+  	cy.route('https://apis.google.com/js/api.js', gapi)
   })
-  cy.visit('http://localhost:1234/', {
-    onBeforeLoad (win) {
-      delete win.fetch
-      win.eval(polyfill)
-      win.fetch = win.unfetch
-    }
-  })
+	cy.visit('http://localhost:1234/', {
+		onBeforeLoad (win) {
+			delete win.fetch
+			win.eval(polyfill)
+			win.fetch = win.unfetch
+		},
+	})
 })

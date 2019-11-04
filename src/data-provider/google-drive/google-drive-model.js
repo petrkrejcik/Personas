@@ -1,7 +1,7 @@
-import {connect as connectGoogle, fetchData, init, save as apiSave} from '/data-provider/google-drive/google-drive-api.js'
-import {dispatch, subscribe, getState} from '/store/store.js'
-import {ACTIONS as DATA_PROVIDER} from '/data-provider/actions.js'
-import {ACTIONS as PERSON} from '/person/person-actions.js'
+import {connect as connectGoogle, fetchData, init, save as apiSave} from '../../data-provider/google-drive/google-drive-api'
+import {dispatch, subscribe, getState} from '../../store/store'
+import {ACTIONS as DATA_PROVIDER} from '../../data-provider/actions'
+import {ACTIONS as PERSON} from '../../person/person-actions'
 
 const setup = () => {
 	subscribe(action => {
@@ -23,9 +23,8 @@ const onLibLoaded = () => {
 		defaultContent: [],
 		// TODO: apiKey, etc
 	}
-	init(options).then((result) => {
-		const {isInitiated} = result
-		dispatch({type: DATA_PROVIDER.SYNC_ENABLED, payload: isInitiated})
+	init(options).then(() => {
+		dispatch({type: DATA_PROVIDER.SYNC_ENABLED, payload: true})
 		// setState({'googleSyncEnabled': isInitiated})
 	})
 }
