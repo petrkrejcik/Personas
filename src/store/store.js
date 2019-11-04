@@ -11,12 +11,18 @@ const listeners = []
  * @property {string} year
  */
 
+/**
+ * @typedef {Object} Action
+ * @property {string} type
+ * @property {any} [payload]
+ */
 
 /**
  * @typedef {Object} State
  * @property {PersonEdit} personEdit
  * @property {any} activeElement
  * @property {Object} persons
+ * @property {string} deleteOverlayId
  */
 let state = {
 	// googleSyncEnabled: false,
@@ -26,9 +32,11 @@ let state = {
 	// view: 'loading',
 	activeElement: null,
 	personEdit: null,
+	deleteOverlayId: null,
 }
 
 /**
+ * Returns state
  * @returns {State}
  */
 const getState = () => {
@@ -36,6 +44,7 @@ const getState = () => {
 }
 
 /**
+ * Sets a new state
  * @param {State} newState
  */
 const setState = (newState) => {
@@ -45,9 +54,13 @@ const setState = (newState) => {
 	}
 }
 
+/**
+ * Dispatches an action which goes to the reducer.
+ * @param {Action} action Action
+ */
 const dispatch = (action) => {
 	const state = getState()
-	// console.log('🔊', action.type, action.payload)
+	console.log('🔊', action.type, action.payload)
 	if (!action.type) return
 	const newState = reducer(state, action)
 	setState(newState)

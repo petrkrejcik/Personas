@@ -1,4 +1,5 @@
 /// <reference path="types.d.ts" />
+// @ts-check
 
 // import dataProvider from './data-provider/filesystem/filesystem'
 import dataProvider from './data-provider/google-drive/google-drive-model'

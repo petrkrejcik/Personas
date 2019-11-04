@@ -1,3 +1,4 @@
+// @ts-check
 import {subscribe, dispatch, getState} from '../store/store'
 import * as view from '../person/persons-view'
 import {createIso, parseDate} from '../utils/date'
@@ -12,35 +13,6 @@ export const DEFAULTS = {
 	year: '1980',
 }
 
-const setup = () => {
-	subscribe(update)
-}
-
-const update = () => {
-	updatePersons()
-}
-
-// const updatePersons = () => {
-// 	view.clearPersons()
-// 	renderPersons(getState().persons)
-// }
-
-// const renderPersons = (persons) => {
-// 	const personsView = persons
-// 		.map(person => {
-// 			return {
-// 				...person,
-// 				age: getAge(person.birthday),
-// 				daysToBirthday: getDaysToBirthday(person.birthday),
-// 				seenBefore: getSeenBefore(person.seen),
-// 				handleEdit: edit,
-// 				handleRemove: remove,
-// 			}
-// 		})
-// 		.sort(sortByBirthday)
-// 	view.renderPersons(personsView, addPerson)
-// }
-
 export const getProps = () => {
 	const persons = Object.values(getState().persons)
 		.map(person => {
@@ -52,14 +24,13 @@ export const getProps = () => {
 				onEditClick: id => {
 					// TODO: Move to separate function
 					const person = getState().persons[id]
-					let {day, month, year} = parseDate(person.birthday)
-					day = day + ''
-					month = month + ''
-					year = year + ''
+					const {day, month, year} = parseDate(person.birthday)
 					dispatch(editPerson({...person, day, month, year}))
 					dispatch(goToEdit(id))
 				},
-				handleRemove: remove,
+				onRemoveClick: toggleRemoveOverlay,
+				cancelRemove: toggleRemoveOverlay,
+				remove: remove,
 			}
 		})
 		.sort(sortByBirthday)
@@ -105,29 +76,6 @@ const getDaysToBirthday = (isoDate) => {
 	return days
 }
 
-// const addPerson = (name, day, month, year) => {
-// 	const birthday = createIso(day, month, year)
-// 	const error = getValidationError(name, birthday)
-// 	if (error) {
-// 		alert(error)
-// 		return
-// 	}
-// 	const payload = {name, birthday}
-// 	dispatch({type: PERSON.ADD, payload})
-// 	dispatch({type: PERSON.SYNC})
-// }
-
-// const editPerson = (id, name, day, month, year) => {
-// 	const birthday = createIso(day, month, year)
-// 	const error = getValidationError(name, birthday)
-// 	if (error) {
-// 		alert(error)
-// 		return
-// 	}
-// 	dispatch({type: PERSON.EDIT, payload: {id, name, birthday}})
-// 	dispatch({type: PERSON.SYNC})
-// }
-
 const getValidationError = (name, birthday) => {
 	if (!name) {
 		return 'Empty name'
@@ -153,11 +101,19 @@ const resetSeen = (id) => {
 	dispatch({type: PERSON.SYNC})
 }
 
-const edit = (id) => {
-	// setState({view: 'edit', editingPerson: id})
+/**
+ * Shows or hide remove overlay.
+ * @param {string} id 
+ */
+const toggleRemoveOverlay = id => {
+	dispatch({type: PERSON.TOGGLE_DELETE_OVERLAY, payload: id})
 }
-const remove = (id) => {
-	if (!confirm('Delete person?')) return
+
+/**
+ * Removes a person.
+ * @param {string} id 
+ */
+const remove = id => {
 	dispatch({type: PERSON.REMOVE, payload: id})
 	dispatch({type: PERSON.SYNC})
 }
