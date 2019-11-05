@@ -3,6 +3,12 @@ import {ACTIONS as PERSON} from '../person/person-actions'
 import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
 import {ACTIONS as APP} from '../app/app-action'
 
+/**
+ * Creates a new state based on action.
+ * 
+ * @param {State} state state
+ * @param {Action} action action
+ */
 export const reducer = (state, action) => {
 	switch (action.type) {
 		case PERSON.save: {
@@ -20,16 +26,18 @@ export const reducer = (state, action) => {
 				persons: action.payload,
 			}
 		}
-		case PERSON.ADD: {
-			const persons = state.persons.concat(action.payload)
-			return {
-				...state,
-				persons,
-			}
-		}
+		// case PERSON.ADD: {
+		// 	const persons = state.persons.concat(action.payload)
+		// 	return {
+		// 		...state,
+		// 		persons,
+		// 	}
+		// }
 		case PERSON.REMOVE: {
-			if (!action.payload) return state
-			const {[action.payload]: _, ...persons} = state.persons
+			const {payload} = action
+			if (typeof payload !== 'string') return state
+			// @ts-ignore
+			const {[payload]: _, ...persons} = state.persons
 			return {
 				...state,
 				persons,

@@ -1,8 +1,6 @@
 // @ts-check
-import {subscribe, dispatch, getState} from '../store/store'
-import * as view from '../person/persons-view'
-import {createIso, parseDate} from '../utils/date'
-import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
+import {dispatch, getState} from '../store/store'
+import {parseDate} from '../utils/date'
 import {editPerson, ACTIONS as PERSON} from '../person/person-actions'
 import {goToEdit} from '../router/router-actions'
 
@@ -86,20 +84,20 @@ const getValidationError = (name, birthday) => {
 	return null
 }
 
-const resetSeen = (id) => {
-	const persons = getState().persons.map((person) => {
-		if (id !== person.id) return person
-		const now = new Date()
-		const year = now.getUTCFullYear()
-		const month = (now.getMonth() + 1 + '').padStart(2, '0')
-		const day = (now.getDate() + '').padStart(2, '0')
-		return {
-			...person,
-			seen: `${year}-${month}-${day}`,
-		}
-	})
-	dispatch({type: PERSON.SYNC})
-}
+// const resetSeen = (id) => {
+// 	const persons = getState().persons.map((person) => {
+// 		if (id !== person.id) return person
+// 		const now = new Date()
+// 		const year = now.getUTCFullYear()
+// 		const month = (now.getMonth() + 1 + '').padStart(2, '0')
+// 		const day = (now.getDate() + '').padStart(2, '0')
+// 		return {
+// 			...person,
+// 			seen: `${year}-${month}-${day}`,
+// 		}
+// 	})
+// 	dispatch({type: PERSON.SYNC})
+// }
 
 /**
  * Shows or hide remove overlay.
