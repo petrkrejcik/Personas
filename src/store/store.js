@@ -1,38 +1,13 @@
 // @ts-check
+/// <reference path="store-types.d.ts" />
 import {reducer} from './reducer'
 
+/** @type {Array<Function>} */
 const listeners = []
 
-/**
- * @typedef {Object} PersonEdit
- * @property {string} name
- * @property {string} day
- * @property {string} month
- * @property {string} year
- */
-
-/**
- * @typedef {Object} Action
- * @property {string} type
- * @property {any} [payload]
- */
-
-/**
- * @typedef {Object} State
- * @property {PersonEdit} personEdit
- * @property {any} activeElement
- * @property {Object} persons
- * @property {string} deleteOverlayId
- */
+/** @type {State} */
 let state = {
-	// googleSyncEnabled: false,
-	// isSignedIn: false,
 	persons: {},
-	// isLoading: true,
-	// view: 'loading',
-	activeElement: null,
-	personEdit: null,
-	deleteOverlayId: null,
 }
 
 /**
@@ -69,6 +44,11 @@ const dispatch = (action) => {
 	})
 }
 
+/**
+ * Subscribes to a state update.
+ * 
+ * @param {Function} callback Called after state is updated
+ */
 const subscribe = (callback) => {
 	listeners.push(callback)
 }
