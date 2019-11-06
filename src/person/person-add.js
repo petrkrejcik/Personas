@@ -1,20 +1,21 @@
 // @ts-check
 import {dispatch, getState} from '../store/store'
 import {birthdayPicker} from '../components/birthday-picker'
-import {save, editField} from '../person/person-actions'
+import {editField} from '../person/person-actions'
 import {storeActiveElement} from '../app/app-action'
-import {goToHome} from '../router/router-actions'
-import {createIso} from '../utils/date'
-import {createId} from '../person/person-util'
 import {addTestAttribute} from '../utils/dom'
 
-export default function render () {
+/**
+ * @param {{onSave: Function}} props 
+ */
+export default function render (props) {
 	const el = document.createElement('div')
 	const {personEdit} = getState()
+	if (!personEdit) throw new Error('Empty `personEdit')
 	const content = [
 		renderName(personEdit.name),
 		renderPicker(personEdit.day, personEdit.month, personEdit.year),
-		renderSaveButton(personEdit),
+		renderSaveButton(personEdit, props.onSave),
 	]
 	content.map((c) => el.appendChild(c))
 	return el
@@ -47,20 +48,10 @@ const renderPicker = (day, month, year) => {
 	return el
 }
 
-const renderSaveButton = (personEdit) => {
+const renderSaveButton = (personEdit, onSave) => {
 	const el = document.createElement('button')
 	el.innerText = 'Save'
-	el.addEventListener('click', () => {
-		// TODO: Move to separate function
-		const {day, month, year, ...personRest} = personEdit
-		const person = {
-			id: createId(personRest.name),
-			...personRest,
-			birthday: createIso(day, month, year),
-		}
-		dispatch(save(person))
-		dispatch(goToHome())
-	})
+	el.addEventListener('click', () => onSave())
 	el.classList.add('add-button--save')
 	el.setAttribute('data-cy', 'add-button--save')
 	return el
