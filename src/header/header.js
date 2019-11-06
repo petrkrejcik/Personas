@@ -1,11 +1,14 @@
 import {dispatch, getState} from '../store/store'
 import {goToAdd} from '../router/router-actions'
 import {DEFAULTS as DEFAULT_PERSON} from '../person/persons-model'
-import {editPerson} from '../person/person-actions'
+import {editPerson, toggleAdd} from '../person/person-actions'
+import { addTestAttribute } from '../utils/dom'
+import './header.css'
 
 export default function render () {
 	const el = document.createElement('div')
-	el.setAttribute('data-cy', 'header')
+	el.classList.add('app-header')
+	addTestAttribute(el, 'header')
 	const content = [
 		renderTitle(),
 		renderSync(),
@@ -35,7 +38,7 @@ const renderAdd = () => {
 	el.setAttribute('data-cy', 'header-button--add')
 	el.addEventListener('click', () => {
 		dispatch(editPerson(DEFAULT_PERSON))
-		dispatch(goToAdd())
+		dispatch(toggleAdd(true))
 	})
 	el.innerHTML = 'Add'
 	return el

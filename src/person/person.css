@@ -1,0 +1,26 @@
+.personsEmpty {
+    text-align: center;
+}
+
+.persons {
+	margin: 0 auto 10px auto;
+}
+
+.person {
+	position: relative;
+	margin-top: 5px;
+	box-shadow: 0px 1px 1px 0px #d0d0d0;
+	background-color: #fff;
+	padding: 7px 10px;
+}
+
+.person-title {
+	font-weight: bold;
+}
+
+@media only screen and (min-width: 600px) {
+	.persons {
+		width: 80%;
+		margin: 0 auto 10px auto;
+	}
+}

@@ -1,12 +1,11 @@
-import {subscribe, dispatch, getState} from '../store/store'
+import {subscribe, dispatch} from '../store/store'
 import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
 import Login from '../login/login-view'
 import Header from '../header/header'
 import Persons from '../person/persons-view'
-import AddEdit from '../person/person-add'
 import {ROUTES} from '../router/routes'
 import {ACTIONS} from '../router/router-actions'
-import {getProps as getPersons} from '../person/persons-model'
+import * as personModel from '../person/persons-model'
 import {getActiveElement} from '../app/app-action'
 
 const getRoute = () => {
@@ -33,24 +32,10 @@ const route = action => {
 			)
 			break;
 		}
-		case ROUTES.add: {
-			body.push(
-				Header(),
-				AddEdit(),
-			)
-			break;
-		}
-		case ROUTES.edit: {
-			body.push(
-				Header(),
-				AddEdit(),
-			)
-			break;
-		}
 		default: {
 			body = [
 				Header(),
-				Persons(getPersons()),
+				Persons(personModel.getProps()),
 			]
 		}
 	}

@@ -51,6 +51,7 @@ npm run build
 1. Show data or empty screen
 
 ## TODO
+- [ ] Store state locally.
 - [ ] Add new data provider
   - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one
   who will managed the connection to API/local database

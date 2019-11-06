@@ -6,6 +6,7 @@ interface Person {
 }
 
 interface PersonEdit {
+    id: string;
     name: string;
     day: string;
     month: string;
@@ -23,4 +24,5 @@ interface State {
     activeElement?: Element;
     deleteOverlayId?: string;
     dataProvider?: Object;
+    isAddingPerson?: boolean,
 }

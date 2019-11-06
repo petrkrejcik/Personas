@@ -7,10 +7,10 @@ describe('Delete person', () => {
 		}
 		cy.addPerson(person)
 		
-		cy.get('[data-cy=person-foo-name] [data-cy=remove]').click()
-		cy.get('[data-cy=person-foo-name] [data-cy=cancel]').click()
+		cy.get('[data-cy=person-foo-name] [data-cy=remove]').click({force: true})
+		cy.get('[data-cy=person-foo-name] [data-cy=cancel]').click({force: true})
         
-		cy.get('[data-cy=person-foo-name] [data-cy=overlay]').should('not.be.visible')
+		cy.get('[data-cy=person-foo-name] [data-cy=remove-overlay]').should('not.be.visible')
 		cy.get('[data-cy=person-foo-name]').should('be.visible')
 	})
     
@@ -22,7 +22,7 @@ describe('Delete person', () => {
 		}
 		cy.addPerson(person)
 		
-		cy.get('[data-cy=person-foo-name] [data-cy=remove]').click()
+		cy.get('[data-cy=person-foo-name] [data-cy=remove]').click({force: true})
 		cy.get('[data-cy=person-foo-name] [data-cy=confirm]').click()
 		
 		cy.get('[data-cy=person-foo-name]').should('not.be.visible')

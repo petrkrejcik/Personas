@@ -1,8 +1,9 @@
 // @ts-check
 import {dispatch, getState} from '../store/store'
-import {parseDate} from '../utils/date'
-import {editPerson, ACTIONS as PERSON} from '../person/person-actions'
-import {goToEdit} from '../router/router-actions'
+import {parseDate, createIso} from '../utils/date'
+import {editPerson, ACTIONS as PERSON, toggleAdd, save as savePerson} from '../person/person-actions'
+import {goToEdit, goToHome} from '../router/router-actions'
+import { createId } from './person-util'
 
 export const DEFAULTS = {
 	name: '',
@@ -12,6 +13,17 @@ export const DEFAULTS = {
 }
 
 export const getProps = () => {
+	return {
+		persons: getPersons(),
+		isAdd: getState().isAddingPerson,
+		onSave: save,
+	}
+}
+
+/**
+ * @returns {Array<Person>}
+ */
+const getPersons = () => {
 	const persons = Object.values(getState().persons)
 		.map(person => {
 			return {
@@ -24,15 +36,33 @@ export const getProps = () => {
 					const person = getState().persons[id]
 					const {day, month, year} = parseDate(person.birthday)
 					dispatch(editPerson({...person, day, month, year}))
-					dispatch(goToEdit(id))
+					// dispatch(goToEdit(id))
 				},
 				onRemoveClick: toggleRemoveOverlay,
 				cancelRemove: toggleRemoveOverlay,
 				remove: remove,
+				save: save.bind(null, person.id),
 			}
 		})
 		.sort(sortByBirthday)
-	return {persons}
+	return persons
+}
+
+/**
+ * @param {string?} id 
+ */
+const save = (id) => {
+	const {personEdit} = getState()
+	const {day, month, year, ...personRest} = personEdit
+	const person = {
+		id: id || createId(personRest.name),
+		...personRest,
+		birthday: createIso(day, month, year),
+	}
+	dispatch(savePerson(person))
+	dispatch(goToHome())
+	dispatch(toggleAdd(false))
+	dispatch(editPerson(null))
 }
 
 const sortByBirthday = (personA, personB) => {

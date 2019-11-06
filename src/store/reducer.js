@@ -64,6 +64,12 @@ export const reducer = (state, action) => {
 				deleteOverlayId: action.payload,
 			}
 		}
+		case PERSON.TOGGLE_ADD: {
+			return {
+				...state,
+				isAddingPerson: action.payload,
+			}
+		}
 		case DATA_PROVIDER.IS_LOGGED: {
 			const dataProvider = {
 				...state.dataProvider,
