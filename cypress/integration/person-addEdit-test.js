@@ -11,7 +11,7 @@ describe('Add person', () => {
 		// cy.url().should('include', '/add')
 	})
 
-	it.only('cancel button', () => {
+	it('cancel button', () => {
 		cy.get('[data-cy=header-button--add]').click()
 		cy.get('[data-cy=add-button--cancel]').click()
 
