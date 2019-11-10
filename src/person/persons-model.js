@@ -5,6 +5,7 @@ import {editPerson, ACTIONS as PERSON, toggleAdd, save as savePerson} from '../p
 import {goToEdit, goToHome} from '../router/router-actions'
 import { createId } from './person-util'
 
+
 export const DEFAULTS = {
 	name: '',
 	day: '1',
@@ -12,16 +13,23 @@ export const DEFAULTS = {
 	year: '1980',
 }
 
+/**
+ * @returns {PersonModelProps}
+ */
 export const getProps = () => {
 	return {
 		persons: getPersons(),
 		isAdd: getState().isAddingPerson,
 		onSave: save,
+		onCancel: () => {
+			dispatch(toggleAdd(false))
+			dispatch(editPerson(null))
+		},
 	}
 }
 
 /**
- * @returns {Array<Person>}
+ * @returns {Array<PersonProps>}
  */
 const getPersons = () => {
 	const persons = Object.values(getState().persons)

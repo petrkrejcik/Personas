@@ -11,6 +11,13 @@ describe('Add person', () => {
 		// cy.url().should('include', '/add')
 	})
 
+	it.only('cancel button', () => {
+		cy.get('[data-cy=header-button--add]').click()
+		cy.get('[data-cy=add-button--cancel]').click()
+
+		cy.get('[data-cy=add-input--name]').should('not.be.visible')
+	})
+
 	it('add new has default values', () => {
 		cy.get('[data-cy=header-button--add]').click()
 

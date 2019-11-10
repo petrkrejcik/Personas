@@ -1,4 +1,6 @@
 /// <reference path="types.d.ts" />
+/// <reference path="person/person-types.d.ts" />
+/// <reference path="store/store-types.d.ts" />
 // @ts-check
 
 // import dataProvider from './data-provider/filesystem/filesystem'
