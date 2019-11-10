@@ -18,6 +18,7 @@ export const ACTIONS = {
  * @param {any} value 
  */
 export const editField = (field, value) => ({type: ACTIONS.editField, payload: {field, value}})
+
 /**
  * Sets person as `personEdit` into state.
  * @param {PersonEdit?} person 
