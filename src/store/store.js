@@ -1,5 +1,4 @@
 // @ts-check
-/// <reference path="store-types.d.ts" />
 import {reducer} from './reducer'
 
 /** @type {Array<Function>} */

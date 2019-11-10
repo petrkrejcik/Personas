@@ -8,7 +8,7 @@ import './person.css'
 
 /**
  * Render
- * @param {{persons: Array<Person>, isAdd: boolean, onSave: Function}} props Propperties
+ * @param {PersonModelProps} props Properties
  */
 export default function render (props) {
 	clearPersons() // TODO: clean when necessary
@@ -16,26 +16,24 @@ export default function render (props) {
 	el.classList.add('persons')
 	addTestAttribute(el, 'persons')
 	if (props.isAdd) {
-		el.appendChild(renderAddEdit({onSave: props.onSave}))
+		el.appendChild(renderAddEdit({onSave: props.onSave, onCancel: props.onCancel}))
 	} else if (props.persons.length === 0) {
 		el.appendChild(renderEmpty())
 	}
-	renderPersons(props.persons)
+	props.persons
+		.map(renderPerson(props.onCancel))
 		.forEach(person => el.appendChild(person))
 	return el
 }
 
 /**
- * Renders element with persons.
- * @param {Array<Person>} persons Persons
+ * Renders element with person.
+ * @param {Function} onCancel
+ * @returns {(PersonProps) => HTMLElement}
  */
-const renderPersons = (persons) => {
-	return persons.map(renderPerson)
-}
-
-const renderPerson = person => {
+const renderPerson = onCancel => person => {
 	const {deleteOverlayId, personEdit} = getState()
-	if (personEdit && personEdit.id === person.id) return renderEditOverlay(person)
+	if (personEdit && personEdit.id === person.id) return renderEditOverlay(person, onCancel)
 	if (deleteOverlayId === person.id) return renderRemoveOverlay(person)
 	
 	const el = createPersonEl(person)
@@ -89,8 +87,8 @@ const renderRemoveOverlay = person => {
 	return el
 }
 
-const renderEditOverlay = person => {
-	return renderAddEdit({onSave: person.save})
+const renderEditOverlay = (person, onCancel) => {
+	return renderAddEdit({onSave: person.save, onCancel})
 }
 
 const createPersonEl = person => {

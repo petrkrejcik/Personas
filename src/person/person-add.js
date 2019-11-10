@@ -6,7 +6,7 @@ import {storeActiveElement} from '../app/app-action'
 import {addTestAttribute} from '../utils/dom'
 
 /**
- * @param {{onSave: Function}} props 
+ * @param {{onSave: Function, onCancel: Function}} props 
  */
 export default function render (props) {
 	const el = document.createElement('div')
@@ -16,6 +16,7 @@ export default function render (props) {
 		renderName(personEdit.name),
 		renderPicker(personEdit.day, personEdit.month, personEdit.year),
 		renderSaveButton(personEdit, props.onSave),
+		renderCancelButton(props.onCancel),
 	]
 	content.map((c) => el.appendChild(c))
 	return el
@@ -54,5 +55,14 @@ const renderSaveButton = (personEdit, onSave) => {
 	el.addEventListener('click', () => onSave())
 	el.classList.add('add-button--save')
 	el.setAttribute('data-cy', 'add-button--save')
+	return el
+}
+
+const renderCancelButton = (onCancel) => {
+	const el = document.createElement('button')
+	el.innerText = 'Cancel'
+	el.addEventListener('click', onCancel)
+	el.classList.add('add-button--cancel')
+	addTestAttribute(el, 'add-button--cancel')
 	return el
 }
