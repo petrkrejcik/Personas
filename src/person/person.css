@@ -14,13 +14,42 @@
 	padding: 7px 10px;
 }
 
-.person-title {
-	font-weight: bold;
-}
-
 @media only screen and (min-width: 600px) {
 	.persons {
 		width: 80%;
 		margin: 0 auto 10px auto;
 	}
+}
+
+.person-title {
+	font-weight: bold;
+}
+
+.buttonSeen {
+	margin-left: 10px;
+}
+
+.seen-save {
+	margin-bottom: 40px;
+}
+
+.edit {
+	display: none;
+	width: 100%;
+}
+
+.edit input, .edit button {
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+}
+
+.edit select {
+	margin: 15px;
+}
+
+.edit-save {
+	background-color: #daf1ff;
+	border: none;
+	padding: 15px;
 }
