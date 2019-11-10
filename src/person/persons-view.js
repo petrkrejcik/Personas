@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="./person-types.d.ts" />
+
 import ICONS from '../components/icons'
 import {formatDMY} from '../utils/date'
 import {addTestAttribute} from '../utils/dom'

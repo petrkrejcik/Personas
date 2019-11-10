@@ -52,7 +52,10 @@ npm run build
 
 ## TODO
 - [x] `Cancel` button when adding
-- [ ] Style `Add new`
+- [ ] CSS: Responsive layout
+- [ ] CSS: Header
+- [ ] CSS: Add/Edit person
+- [ ] CSS: Persons remove overlay with buttons
 - [ ] Store state locally
 - [ ] Add new data provider
   - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one who will managed the connection to API/local database

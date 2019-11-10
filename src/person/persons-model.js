@@ -1,5 +1,6 @@
 // @ts-check
 /// <reference path="./person-types.d.ts" />
+
 import {dispatch, getState} from '../store/store'
 import {parseDate, createIso} from '../utils/date'
 import {editPerson, ACTIONS as PERSON, toggleAdd, save as savePerson} from '../person/person-actions'
