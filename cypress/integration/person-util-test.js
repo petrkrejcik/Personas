@@ -12,3 +12,10 @@ describe('Person util', () => {
 		})
 	})
 })
+
+
+describe('DOM', () => {
+	it('creates an element', () => {
+		expect(1).equal(1);
+	})
+})

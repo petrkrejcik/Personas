@@ -33,7 +33,7 @@ beforeEach(() => {
   .then((gapi) => {
   	cy.route('https://apis.google.com/js/api.js', gapi)
   })
-	cy.visit('http://localhost:1234/', {
+	cy.visit(Cypress.config().baseUrl, {
 		onBeforeLoad (win) {
 			delete win.fetch
 			win.eval(polyfill)

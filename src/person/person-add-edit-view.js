@@ -1,7 +1,7 @@
 // @ts-check
 import {dispatch, getState} from '../store/store'
 import {birthdayPicker} from '../components/birthday-picker'
-import {editField} from '../person/person-actions'
+import {editField} from './person-actions'
 import {storeActiveElement} from '../app/app-action'
 import {addTestAttribute} from '../utils/dom'
 
@@ -10,6 +10,7 @@ import {addTestAttribute} from '../utils/dom'
  */
 export default function render (props) {
 	const el = document.createElement('div')
+	el.classList.add('person')
 	const {personEdit} = getState()
 	if (!personEdit) throw new Error('Empty `personEdit')
 	const content = [

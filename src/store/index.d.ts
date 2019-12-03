@@ -23,6 +23,6 @@ interface State {
     personEdit?: PersonEdit;
     activeElement?: Element;
     deleteOverlayId?: string;
-    dataProvider?: Object;
+    dataProviders?: Array<import("../data-provider/data-provider-middleware").DataProvider>;
     isAddingPerson?: boolean,
 }

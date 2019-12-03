@@ -26,8 +26,8 @@ npm run build
 
 ## How it works
 - Router creates components to display based on URL.
-- Component model takes data from store and converts them to props for view.
 - Components are divided into two layers - model and view.
+- Component model takes data from state and converts them to props for view.
 
 #### Google Drive API Console
 [Google Console](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
@@ -50,14 +50,39 @@ npm run build
 1. (if storage selected) Fetch data from the storage
 1. Show data or empty screen
 
+## Sync Flow
+1. Load app
+1. Load data from data providers (localStorage, GDrive)
+1. When there are more than 1 provider:
+1a. Merge data together
+- mam data ulozeny na GDrive
+- zapnu appku na novym devicu
+- appka je prazdna
+- vytvorim tam personu
+- dam sync s GDrive
+- cely GDrive se smaze, protoze localStorage je novejsi
+
+1. Save to state
+
+1. Add/Edit/Delete person in app
+1. Save to state
+1. Save to (overwrite) localStorage
+1. Save to Google Drive
+
 ## TODO
+- [ ] Sometimes Google throws error when syncing
+- [x] Sync when removing a person
+- [ ] Create good ID
+- [x] Sync with Google Drive
+- [x] Sync all providers between each other
+- [x] Make localStorage just another provider
 - [x] `Cancel` button when adding
-- [ ] CSS: Responsive layout
-- [ ] CSS: Header
+- [x] CSS: Responsive layout
+- [x] CSS: Header
 - [ ] CSS: Add/Edit person
-- [ ] CSS: Persons remove overlay with buttons
-- [ ] Store state locally
-- [ ] Add new data provider
+- [x] CSS: Persons remove overlay with buttons
+- [x] Store state locally
+- [x] Add new data provider
   - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one who will managed the connection to API/local database
 - [ ] Service worker - to work offline: cache google libs; cache persons
   - problem with hash in the filename
@@ -67,14 +92,12 @@ npm run build
 - [ ] Share persons - open URL with persons in query
 - [ ] Back button on mobile closes the app (create a router)
 - [ ] Pressing `Seen today` should not directly save but rather remember click and save on `Save` button
-- [ ] Credits
-	`<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>`
 - [ ] Loader
 
 ## Icons
-https://www.flaticon.com/packs/multimedia-collection
+https://material.io/resources/icons/?style=baseline
 
-## UI
+## UI for PWA
 https://onsen.io/
 
 ## Limits
@@ -115,3 +138,7 @@ options.browserifyOptions.plugin.unshift([
 
 ### Use ESlint
 - To keep the code consistent.
+
+### Unit tests
+- They have to be located in `cypress` folder because Cypress wasn't able to run the test when they were located in `src`. I have specified that in `cypress.json` using `testFiles` property.
+- They can't be run in watch mode in CLI. I have to run them in a browser like intergration test. (`only` doesn't work in headless mode)

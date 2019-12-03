@@ -59,7 +59,7 @@ const getPersons = () => {
 }
 
 /**
- * @param {string?} id 
+ * @param {string?} id
  */
 const save = (id) => {
 	const {personEdit} = getState()
@@ -141,7 +141,7 @@ const getValidationError = (name, birthday) => {
 
 /**
  * Shows or hide remove overlay.
- * @param {string} id 
+ * @param {string} id
  */
 const toggleRemoveOverlay = id => {
 	dispatch({type: PERSON.TOGGLE_DELETE_OVERLAY, payload: id})
@@ -149,9 +149,8 @@ const toggleRemoveOverlay = id => {
 
 /**
  * Removes a person.
- * @param {string} id 
+ * @param {string} id
  */
 const remove = id => {
 	dispatch({type: PERSON.REMOVE, payload: id})
-	dispatch({type: PERSON.SYNC})
 }

@@ -2,11 +2,11 @@
 const APP_FOLDER = 'App-Personas'
 const FILE_NAME = 'persons.json'
 let onSignInChangeHandler = Function
-const fileId = ''
-const folderId = ''
+let fileId = ''
+let folderId = ''
 let defaultContent = null
 
-const init = (options = {}) => {
+const init = async (options = {}) => {
 	setupOptions(options)
 	console.info('👉', 'init gdrive')
 	return new Promise ((resolve, reject) => {
@@ -42,17 +42,20 @@ const updateSignInStatus = (isLogged) => {
 	onSignInChangeHandler(isLogged)
 }
 
-const connect = () => {
-	if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-		fetchData()
-	} else {
-		gapi.auth2.getAuthInstance().signIn()
+const isLogged = () => {
+	return gapi.auth2.getAuthInstance().isSignedIn.get();
+}
+
+const login = async () => {
+	const {signIn, isSignedIn} = gapi.auth2.getAuthInstance();
+	if (isSignedIn.get()) {
+		return Promise.resolve(true);
 	}
+	return await signIn();
 }
 
 const fetchData = () => {
-	// return Promise.resolve()
-
+	console.log('🔊', 'fetchingData from API')
 	return getFolder()
 	.then(getFile)
 	.then(getFileContent)
@@ -64,15 +67,15 @@ const getFolder = () => {
 			q: `name='${APP_FOLDER}' and trashed=false`,
 		})
 
-		// request.execute((response) => {
-		// 	if (typeof response === 'object' || response.files) return
-		// 	if (response.files.length === 0) {
-		// 		createFolder().then(resolve)
-		// 	} else {
-		// 		folderId = response.files[0].id
-		// 		resolve()
-		// 	}
-		// })
+		request.execute((response) => {
+			if (typeof response !== 'object' || !response.files) return
+			if (response.files.length === 0) {
+				createFolder().then(resolve)
+			} else {
+				folderId = response.files[0].id
+				resolve()
+			}
+		})
 	})
 }
 
@@ -82,11 +85,11 @@ const createFolder = () => {
 			name: APP_FOLDER,
 			mimeType: 'application/vnd.google-apps.folder',
 		}
-		// const request = gapi.client.drive.files.create({resource: metadata})
-		// request.execute((response) => {
-		// 	folderId = response.id
-		// 	resolve()
-		// })
+		const request = gapi.client.drive.files.create({resource: metadata})
+		request.execute((response) => {
+			folderId = response.id
+			resolve()
+		})
 	})
 }
 
@@ -95,14 +98,15 @@ const getFile = () => {
 		const request = gapi.client.drive.files.list({
 			q: `name="${FILE_NAME}" and '${folderId}' in parents and trashed=false`,
 		})
-		// request.execute((response) => {
-		// 	if (response.files.length === 0) {
-		// 		createFile().then(resolve)
-		// 	} else {
-		// 		fileId = response.files[0].id
-		// 		resolve()
-		// 	}
-		// })
+		request.execute((response) => {
+			console.log('🔊', 'response', response)
+			if (response.files.length === 0) {
+				createFile().then(resolve)
+			} else {
+				fileId = response.files[0].id
+				resolve()
+			}
+		})
 	})
 }
 const createFile = () => {
@@ -138,24 +142,26 @@ const createFile = () => {
 			'body': multipartRequestBody,
 		})
 
-		// request.execute((response) => {
-		// 	fileId = response.id
-		// 	resolve()
-		// })
+		request.execute((response) => {
+			fileId = response.id
+			resolve()
+		})
 	})
 }
 
 const getFileContent = () => {
+	console.log('🔊', 'getFileContent')
 	return new Promise ((resolve, reject) => {
+		console.log('🔊', 'fileId', fileId)
 		const request = gapi.client.drive.files.get({
 			fileId: fileId,
 			alt: 'media',
 		})
 		request.execute((response) => {
-			// if (response.error) {
-			// 	reject(`Error during file download: ${response.error.message}`)
-			// 	return
-			// }
+			if (response.error) {
+				reject(`Error during file download: ${response.error.message}`)
+				return
+			}
 			console.log('response.result', response.result);
 			resolve(response.result)
 		})
@@ -168,14 +174,14 @@ const save = (content) => {
 		const request = gapi.client.request({
 			path: '/upload/drive/v2/files/' + fileId,
 			method: 'PUT',
-			// alt: 'media',
+			alt: 'media',
 			body: content,
 		})
 		request.execute((response) => {
-			// if (response.error) {
-			// 	reject(`Error during sync: ${response.error.message}`)
-			// 	return
-			// }
+			if (response.error) {
+				reject(`Error during sync: ${response.error.message}`)
+				return
+			}
 			getFileContent().then((fileContent) => {
 				resolve(fileContent)
 			})
@@ -184,8 +190,9 @@ const save = (content) => {
 }
 
 export {
-	connect,
+	login,
 	fetchData,
 	init,
 	save,
+	isLogged,
 }
