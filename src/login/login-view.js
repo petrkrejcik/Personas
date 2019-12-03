@@ -1,10 +1,12 @@
-export default function render (props) {
-	const login = document.createElement('button')
+import {createDom, div} from '../utils/dom';
+import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions';
+import {dispatch} from '../store/store';
+
+export default function render () {
+	const onClick = () => dispatch({type: DATA_PROVIDER.LOGIN});
+	const login = createDom('button', {onClick});
 	login.innerText = 'Login'
-	login.addEventListener('click', () => {
-		props.handleLoginClick()
-	})
-	const wrap = document.createElement('div')
-	wrap.appendChild(login)
-	return wrap
+	return (
+		div({}, login)
+	);
 }

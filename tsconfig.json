@@ -3,6 +3,8 @@
     "target": "es6",
     "module": "es6",
     "types": ["gapi", "gapi.auth2", "gapi.client", "gapi.client.drive"],
-    "outDir": "./.tmp"
+    "outDir": "./.tmp",
+		"allowJs": true,
+		"lib": ["es2017", "dom"]
   }
 }

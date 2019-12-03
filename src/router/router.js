@@ -26,6 +26,7 @@ const route = action => {
 	switch (route) {
 		case ROUTES.login: {
 			body.push(
+				Header(),
 				Login({
 					handleLoginClick: () => dispatch({type: DATA_PROVIDER.LOGIN}),
 				})
@@ -50,5 +51,5 @@ const route = action => {
 
 export const setup = () => {
 	window.onpopstate = route
-	subscribe(route)
+	subscribe(route);
 }

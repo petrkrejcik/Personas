@@ -5,7 +5,7 @@ import {ACTIONS as APP} from '../app/app-action'
 
 /**
  * Creates a new state based on action.
- * 
+ *
  * @param {State} state state
  * @param {Action} action action
  */
@@ -70,20 +70,28 @@ export const reducer = (state, action) => {
 				isAddingPerson: action.payload,
 			}
 		}
-		case DATA_PROVIDER.IS_LOGGED: {
-			const dataProvider = {
-				...state.dataProvider,
-				isLogged: action.payload,
-			}
-			return {
-				...state,
-				dataProvider,
-			}
-		}
 		case APP.setActiveElement: {
 			return {
 				...state,
 				activeElement: action.payload,
+			}
+		}
+		case DATA_PROVIDER.SYNC_START: {
+			return {
+				...state,
+				isSyncing: true,
+			}
+		}
+		case DATA_PROVIDER.SYNC_END: {
+			return {
+				...state,
+				isSyncing: false,
+			}
+		}
+		case DATA_PROVIDER.SET: {
+			return {
+				...state,
+				dataProviders: [...action.payload],
 			}
 		}
 		default:

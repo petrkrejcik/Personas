@@ -4,6 +4,12 @@
 
 .persons {
 	margin: 0 auto 10px auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: left;
+	/* padding: 0px 8px; */
+	max-width: 600px;
 }
 
 .person {
@@ -11,15 +17,21 @@
 	margin-top: 5px;
 	box-shadow: 0px 1px 1px 0px #d0d0d0;
 	background-color: #fff;
-	padding: 7px 10px;
+	/* padding: 7px 10px; */
+	/* max-width: 200px; */
+	/* width: 100%; */
+	/* od Kuby */
+	max-width: 600px;
+	width: 100%;
+
 }
 
-@media only screen and (min-width: 600px) {
+/* @media only screen and (min-width: 600px) {
 	.persons {
 		width: 80%;
 		margin: 0 auto 10px auto;
 	}
-}
+} */
 
 .person-title {
 	font-weight: bold;

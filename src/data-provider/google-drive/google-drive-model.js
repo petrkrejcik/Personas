@@ -1,96 +1,71 @@
-import {connect as connectGoogle, fetchData, init, save as apiSave} from '../../data-provider/google-drive/google-drive-api'
-import {dispatch, subscribe, getState} from '../../store/store'
-import {ACTIONS as DATA_PROVIDER} from '../../data-provider/actions'
-import {ACTIONS as PERSON} from '../../person/person-actions'
+// @ts-check
+import {
+	login,
+	fetchData,
+	init as initApi,
+	save as set,
+	isLogged,
+} from '../../data-provider/google-drive/google-drive-api'
 
-const setup = () => {
-	subscribe(action => {
-		if (action === DATA_PROVIDER.SYNC_ENABLED) {
-			console.info('👉', 'update google button', action.payload)
-			updateGoogleButton(action.payload)
-		}
-	})
-	const button = getGoogleSyncButton()
-	if (button) {
-		button.addEventListener('click', connectGoogle)
-	}
-}
+let _isEnabled = false;
 
-const onLibLoaded = () => {
-	const options = {
-		onSignInChange: onSignInChange,
+const onLibLoaded = async (options) => {
+	const defaultOptions = {
+		onSignInChange: () => {},
 		onError: onError,
 		defaultContent: [],
 		// TODO: apiKey, etc
 	}
-	init(options).then(() => {
-		dispatch({type: DATA_PROVIDER.SYNC_ENABLED, payload: true})
-		// setState({'googleSyncEnabled': isInitiated})
-	})
-}
-
-const onSignInChange = (isSignedIn) => {
-	console.info('👉', 'onSignInChange')
-	if (isSignedIn) {
-		// setState({isSignedIn, view: 'loading'})
-		dispatch({type: PERSON.FETCH})
-	} else {
-		dispatch({type: DATA_PROVIDER.IS_LOGGED, payload: false})
-		// setState({isSignedIn, view: 'signIn'})
-	}
-}
-
-const save = (payload) => {
-	console.info('👉', 'call GDrive API from model', payload)
-	return apiSave(payload) // TODO: rejected
-}
-
-const fetch = () => {
-	fetchData().then(response => {
-		if (!Array.isArray(response)) {
-			onError('Unknown reposonse from server')
-			return null
-		}
-		const persons = response.map(person => {
-			return {
-				...person,
-				name: unescape(person.name),
-			}
-		})
-		return persons
-		// dispatch({type: PERSON.SET, payload: persons})
-	})
-}
-
-const login = () => {
-	connectGoogle()
+	await initApi({...defaultOptions, ...options});
 }
 
 const onError = (error) => {
-	// setState({view: 'error'})
 	alert(error)
 }
 
-const updateGoogleButton = (isEnabled) => {
-	if (isEnabled) {
-		const button = getGoogleSyncButton()
-		if (button) {
-			button.removeAttribute('disabled')
-		}
+/**
+ * Get persons from local storage.
+ */
+const get = async () => {
+	console.log('🔊', 'getting from grive')
+	const response = await fetchData();
+	if (typeof response !== 'object') {
+		onError('Unknown reposonse from server')
+		return null;
 	}
+	let persons = {};
+	if (Array.isArray(response)) {
+		// temporal
+		response.forEach(person => {
+			persons[person.id] = person;
+		});
+	} else {
+		persons = response.persons;
+	}
+	const result = Object.keys(persons).reduce((all, id) => {
+		all[id] = {
+			...persons[id],
+			name: unescape(persons[id].name),
+		};
+		return all;
+	}, {})
+	return {persons: result, updated: response.updated || 0};
 }
 
-const getGoogleSyncButton = () => {
-	return document.querySelector('button[data-prs="googleDriveButton"]')
+const init = async () => {
+	const response = await fetch('https://apis.google.com/js/api.js');
+	eval(await response.text());
+	await onLibLoaded();
+	_isEnabled = true;
 }
 
-export default function(options) {
-	setup()
+const isEnabled = () => _isEnabled;
 
-	return {
-		save,
-		onLibLoaded,
-		fetch,
-		login,
-	}
+export default {
+	init,
+	get,
+	set,
+	login,
+	isLogged,
+	isEnabled,
 }

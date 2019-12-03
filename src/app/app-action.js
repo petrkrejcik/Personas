@@ -2,6 +2,7 @@ import {getState} from '../store/store'
 
 export const ACTIONS = {
 	setActiveElement: 'utils/set-active-element',
+	init: 'app/init',
 }
 
 export const storeActiveElement = () => {

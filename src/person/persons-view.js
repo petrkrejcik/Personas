@@ -3,9 +3,9 @@
 
 import ICONS from '../components/icons'
 import {formatDMY} from '../utils/date'
-import {addTestAttribute} from '../utils/dom'
+import {addTestAttribute, div} from '../utils/dom'
 import { getState } from "../store/store"
-import renderAddEdit from './person-add'
+import renderAddEdit from './person-add-edit-view'
 import './person.css'
 
 /**
@@ -37,56 +37,36 @@ const renderPerson = onCancel => person => {
 	const {deleteOverlayId, personEdit} = getState()
 	if (personEdit && personEdit.id === person.id) return renderEditOverlay(person, onCancel)
 	if (deleteOverlayId === person.id) return renderRemoveOverlay(person)
-	
-	const el = createPersonEl(person)
-	const fields = [
-		renderTitle(person.name),
-		renderBirthday(person),
-		renderSeen(person.seenBefore),
-		...renderCustomTexts(person.customTexts),
-	]
-	fields
-		.filter(Boolean)
-		.forEach(field => el.appendChild(field))
-	const edit = document.createElement('div')
-	const remove = document.createElement('div')
-	edit.addEventListener('click', person.onEditClick.bind(null, person.id))
-	remove.addEventListener('click', person.onRemoveClick.bind(null, person.id))
-	addTestAttribute(edit, 'edit')
-	addTestAttribute(remove, 'remove')
-	edit.classList.add('icon-edit', 'icon')
-	remove.classList.add('icon-remove', 'icon')
-	edit.innerHTML = ICONS.edit
-	remove.innerHTML = ICONS.remove
-	el.appendChild(remove)
-	el.appendChild(edit)
-	return el
+
+	const onEditClick = person.onEditClick.bind(null, person.id);
+	const onRemoveClick = person.onRemoveClick.bind(null, person.id);
+	return (
+		div({className: 'person', testId: `person-${person.id}`}, [
+			renderTitle(person.name),
+			renderBirthday(person),
+			renderSeen(person.seenBefore),
+			...renderCustomTexts(person.customTexts),
+			div({className: ['icon-edit', 'icon'], testId: 'edit', onClick: onEditClick}, ICONS.edit),
+			div({className: ['icon-remove', 'icon'], testId: 'remove', onClick: onRemoveClick}, ICONS.remove),
+		])
+	);
 }
 
 const renderEmpty = () => {
-	const el = document.createElement('div')
-	el.classList.add('personsEmpty')
-	addTestAttribute(el, 'personsEmpty')
-	el.innerText = 'No persons created yet.'
-	return el
+	return div({className: 'personsEmpty', testId: 'personsEmpty'}, ['No persons created yet.'])
 }
 
 const renderRemoveOverlay = person => {
-	const el = createPersonEl(person)
-	const overlay = document.createElement('div')
-	const confirm = document.createElement('div')
-	addTestAttribute(overlay, 'remove-overlay')
-	const cancel = document.createElement('div')
-	confirm.addEventListener('click', (ev) => person.remove(person.id))
-	cancel.addEventListener('click', person.cancelRemove.bind(null, null))
-	addTestAttribute(confirm, 'confirm')
-	addTestAttribute(cancel, 'cancel')
-	confirm.innerHTML = 'Confirm'
-	cancel.innerHTML = 'Cancel'
-	overlay.appendChild(confirm)
-	overlay.appendChild(cancel)
-	el.appendChild(overlay)
-	return el
+	const onConfirmClick = ev => person.remove(person.id);
+	const onCancelClick = person.cancelRemove.bind(null, null);
+	return (
+		div({className: 'person', testId: `person-${person.id}`}, [
+			div({testId: 'remove-overlay'}, [
+				div({className: 'confirm', testId: 'confirm', onClick: onConfirmClick}, 'Confirm'),
+				div({className: 'cancel', testId: 'cancel', onClick: onCancelClick}, 'Cancel'),
+			]),
+		])
+	);
 }
 
 const renderEditOverlay = (person, onCancel) => {
@@ -94,10 +74,7 @@ const renderEditOverlay = (person, onCancel) => {
 }
 
 const createPersonEl = person => {
-	const el = document.createElement('div')
-	el.classList.add('person')
-	addTestAttribute(el, `person-${person.id}`)
-	return el
+	return div({className: 'person', testId: `person-${person.id}`});
 }
 
 const renderTitle = (value) => {
