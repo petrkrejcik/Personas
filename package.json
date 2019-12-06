@@ -6,7 +6,7 @@
   "author": "Petr Krejčík <krejcik.petr@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html --global prs",
+    "start": "parcel src/index.html",
     "build": "parcel build src/index.html --out-dir docs --public-url /Personas/",
     "test": "npx cypress open",
     "test-headless": "clear && npx cypress run",
