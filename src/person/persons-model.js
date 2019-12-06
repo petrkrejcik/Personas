@@ -92,7 +92,7 @@ const sortByBirthday = (personA, personB) => {
 		const {day, month} = parseDate(person.birthday);
 		return [parseInt(day, 10), parseInt(month, 10)];
 	}
-	return diffDays(getBirthday(personA), now) - diffDays(getBirthday(personB), now)
+	return diffDays(now, getBirthday(personA)) - diffDays(now, getBirthday(personB))
 }
 
 const getAge = (isoDay) => {
