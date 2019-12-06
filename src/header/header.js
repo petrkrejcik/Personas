@@ -25,7 +25,7 @@ export default function render () {
 }
 
 const renderTitle = () => {
-	const el = document.createElement('div')
+	const el = document.createElement('h1')
 	el.classList.add('header__title')
 	el.innerHTML = 'Persons'
 	return el
@@ -33,15 +33,20 @@ const renderTitle = () => {
 
 const renderSync = () => {
 	const classNames = ['header-button--sync'];
+	let warn = null;
 	if (!isSyncOk()) {
 		classNames.push('header__sync-error');
+		warn = div({className: 'header-button--warn', testId: `header-button--warn`}, ICONS.warn);
 	}
 	if (getState().isSyncing) {
 		classNames.push('header__sync-inProgress');
 	}
 	const onClick = () => dispatch({type: DATA_PROVIDER.SYNC_CLICK});
 	return (
-		div({className: classNames, testId: `header-button--sync`, onClick}, ICONS.sync)
+		div({className: 'header__syncWrap'}, [
+			div({className: classNames, testId: `header-button--sync`, onClick}, ICONS.sync),
+			warn,
+		])
 	);
 }
 

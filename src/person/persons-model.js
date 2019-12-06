@@ -2,7 +2,7 @@
 /// <reference path="./person-types.d.ts" />
 
 import {dispatch, getState} from '../store/store'
-import {parseDate, createIso} from '../utils/date'
+import {parseDate, createIso, diffDays, getNow} from '../utils/date'
 import {editPerson, ACTIONS as PERSON, toggleAdd, save as savePerson} from '../person/person-actions'
 import {goToEdit, goToHome} from '../router/router-actions'
 import { createId } from './person-util'
@@ -22,7 +22,7 @@ export const getProps = () => {
 	return {
 		persons: getPersons(),
 		isAdd: getState().isAddingPerson,
-		onSave: save,
+		onSave: () => save(),
 		onCancel: () => {
 			dispatch(toggleAdd(false))
 			dispatch(editPerson(null))
@@ -36,14 +36,20 @@ export const getProps = () => {
 const getPersons = () => {
 	const persons = Object.values(getState().persons)
 		.map(person => {
+			const now = getNow();
+			const {day, month} = parseDate(person.birthday);
 			return {
 				...person,
 				age: getAge(person.birthday),
-				daysToBirthday: getDaysToBirthday(person.birthday),
+				daysToBirthday: diffDays(now, [parseInt(day, 10), parseInt(month, 10)]),
 				seenBefore: getSeenBefore(person.seen),
 				onEditClick: id => {
 					// TODO: Move to separate function
 					const person = getState().persons[id]
+					if (!person) {
+						console.error(`Person not found by id: '${id}'`);
+						return;
+					}
 					const {day, month, year} = parseDate(person.birthday)
 					dispatch(editPerson({...person, day, month, year}))
 					// dispatch(goToEdit(id))
@@ -51,7 +57,7 @@ const getPersons = () => {
 				onRemoveClick: toggleRemoveOverlay,
 				cancelRemove: toggleRemoveOverlay,
 				remove: remove,
-				save: save.bind(null, person.id),
+				save: () => save(person.id),
 			}
 		})
 		.sort(sortByBirthday)
@@ -59,11 +65,15 @@ const getPersons = () => {
 }
 
 /**
- * @param {string?} id
+ * @param {string=} id
  */
 const save = (id) => {
 	const {personEdit} = getState()
 	const {day, month, year, ...personRest} = personEdit
+	if (!personRest.name.trim()) {
+		console.error('Name cannot be empty');
+		return;
+	}
 	const person = {
 		id: id || createId(personRest.name),
 		...personRest,
@@ -77,7 +87,12 @@ const save = (id) => {
 
 const sortByBirthday = (personA, personB) => {
 	if (!personA.birthday || !personB.birthday) return 0
-	return getDaysToBirthday(personA.birthday) - getDaysToBirthday(personB.birthday)
+	const now = getNow();
+	const getBirthday = (person) => {
+		const {day, month} = parseDate(person.birthday);
+		return [parseInt(day, 10), parseInt(month, 10)];
+	}
+	return diffDays(getBirthday(personA), now) - diffDays(getBirthday(personB), now)
 }
 
 const getAge = (isoDay) => {
@@ -94,23 +109,6 @@ const getSeenBefore = (isoDay) => {
 	const now = Date.now()
 	const date = new Date(isoDay).getTime()
 	const days = Math.round((now - date) / 1000 / 60 / 60/ 24)
-	return days
-}
-
-const getDaysToBirthday = (isoDate) => {
-	if (!isoDate) return null
-	const birthday = new Date(isoDate)
-	const nowYear = new Date().getUTCFullYear()
-	const diff = Date.now() - new Date(`${nowYear}-${birthday.getMonth() + 1}-${birthday.getDate()}`).getTime()
-	let days
-	if (diff < 0) {
-		// this year
-		days = Math.abs(Math.ceil(diff / 1000 / 60 / 60 / 24))
-	} else {
-		// next year
-		const diffNext = Date.now() - new Date(`${nowYear + 1}-${birthday.getMonth() + 1}-${birthday.getDate()}`).getTime()
-		days = Math.abs(Math.ceil(diffNext / 1000 / 60 / 60 / 24))
-	}
 	return days
 }
 

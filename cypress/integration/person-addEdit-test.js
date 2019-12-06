@@ -26,6 +26,21 @@ describe('Add person', () => {
 		cy.get('[data-cy=add-input--birthday] > select').eq(2).should('have.value', DEFAULT_PERSON.year)
 	})
 
+	it('adds new disabled without name', () => {
+		cy.get('[data-cy=header-button--add]').click()
+
+		cy.get('[data-cy=add-button--save]').click()
+		cy.get('[data-cy=add-button--save]') // Save button still visible
+	})
+
+	it('adds new disabled with only spaces in name', () => {
+		cy.get('[data-cy=header-button--add]').click()
+		cy.get('[data-cy=add-input--name]').type('  ')
+
+		cy.get('[data-cy=add-button--save]').click()
+		cy.get('[data-cy=add-button--save]') // Save button still visible
+	})
+
 	it('adds new', () => {
 		cy.get('[data-cy=header-button--add]').click()
 
@@ -49,7 +64,7 @@ describe('Add person', () => {
 			birthday: '2000-12-02',
 		}
 		cy.addPerson(person)
-		
+
 		cy.get('[data-cy=person-foo-name] [data-cy=edit]').click({force: true})
 
 		// cy.url().should('include', '/foo-name')

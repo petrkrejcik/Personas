@@ -16,7 +16,7 @@ const onLibLoaded = async (options) => {
 		defaultContent: [],
 		// TODO: apiKey, etc
 	}
-	await initApi({...defaultOptions, ...options});
+	await initApi({...defaultOptions, ...options}).catch(console.error);
 }
 
 const onError = (error) => {
