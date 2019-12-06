@@ -54,7 +54,7 @@ const renderPerson = onCancel => person => {
 };
 
 const renderEmpty = () => {
-	return div({className: 'personsEmpty', testId: 'personsEmpty'}, ['No persons created yet.']);
+	return div({className: 'personsEmpty', testId: 'personsEmpty'}, ['No persons created yetty.']);
 };
 
 const renderRemoveOverlay = person => {
