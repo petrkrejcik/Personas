@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "rm -rf docs && parcel build src/index.html --out-dir docs --public-url /Personas/",
+    "build": "parcel build src/index.html --out-dir docs --public-url /Personas/",
     "test": "npx cypress open",
-    "test-headless": "clear && npx cypress run",
+    "test-headless": "npx cypress run",
     "lint": "npx eslint ./src",
     "ts": "npx tsc"
   },

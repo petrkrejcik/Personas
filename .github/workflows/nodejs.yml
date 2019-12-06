@@ -23,6 +23,5 @@ jobs:
     - name: build and test
       run: |
         npm run build
-        npm run test-headless
       env:
         CI: true
