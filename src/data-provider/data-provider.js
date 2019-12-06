@@ -1,18 +1,7 @@
-import {ACTIONS, setProviders, syncStart, syncEnd} from './actions'
-import {ACTIONS as APP_ACTIONS} from '../app/app-action'
-import {getState, dispatch, subscribeAfter} from '../store/store'
-import {goToLogin} from '../router/router-actions';
-import {ACTIONS as PERSON, saveAll} from '../person/person-actions'
-
-/**
- * @typedef {Object} DataProvider
- * @property {() => void} init
- * @property {() => Promise<{persons?: Object, updated?: number}>} get
- * @property {(data: Object) => void} set
- * @property {() => void=} login
- * @property {() => boolean} isLogged
- * @property {() => boolean} isEnabled
- */
+import {ACTIONS, setProviders, syncStart, syncEnd} from './actions';
+import {ACTIONS as APP_ACTIONS} from '../app/app-action';
+import {getState, dispatch, subscribeAfter} from '../store/store';
+import {ACTIONS as PERSON, saveAll} from '../person/person-actions';
 
 /**
  * Default result of fetching a data provider.
@@ -27,7 +16,7 @@ export default (providers) => {
 	subscribeAfter(run);
 	providers.forEach(register);
 	dispatch(setProviders(providers));
-}
+};
 
 /**
  * Registers a single data provider.
@@ -53,7 +42,7 @@ const merge = (newer, older) => {
 		persons: {...older.persons, ...newer.persons},
 		updated: newer.updated,
 	};
-}
+};
 
 /**
  * Returns enabled data providers.
@@ -88,29 +77,29 @@ const cleanResult = (result) => ({...defaultResult, ...result});
  */
 const sync = async () => {
 	dispatch(syncStart());
-	const providers = getProviders().filter(isLogged)
+	const providers = getProviders().filter(isLogged);
 	const promisesGet = providers.map(get);
 	const resultsDirty = await Promise.all(promisesGet);
 	const results = resultsDirty.map(cleanResult);
 	const {persons, updated} = results.reduce(merge, defaultResult);
 	dispatch(saveAll(persons)); // save to local state
 
-	const providersToSync = providers.filter((_, i) => results[i].updated !== updated)
+	const providersToSync = providers.filter((_, i) => results[i].updated !== updated);
 	const promisesSet = providersToSync.map(set({persons, updated}));
 	await Promise.all(promisesSet);
 	dispatch(syncEnd());
-}
+};
 
 const localToRemote = async () => {
 	dispatch(syncStart());
 	const setData = set({persons: getState().persons});
-	const providers = getProviders().filter(isLogged)
+	const providers = getProviders().filter(isLogged);
 	const promises = providers.map(setData);
 	await Promise
 		.all(promises)
 		.catch((err) => console.error('Error during saving', err));
 	dispatch(syncEnd());
-}
+};
 
 const syncClick = async () => {
 	const promises = getProviders()
@@ -120,7 +109,7 @@ const syncClick = async () => {
 		.all(promises)
 		.catch((err) => console.error('Error during logging in', err));
 	sync();
-}
+};
 
 /**
  * Login into the provider
@@ -130,7 +119,7 @@ const loginProvider = (provider) => {
 	if (!provider.isEnabled()) return Promise.resolve();
 	if (!provider.login) return Promise.resolve();
 	return provider.login();
-}
+};
 
 /**
  * Reads data from data provider.
@@ -160,7 +149,7 @@ export const isSyncOk = () => {
 		return isOk && provider.isEnabled() && provider.isLogged();
 	}, true);
 	return allOk;
-}
+};
 
 /**
  * Subscription function to state update.

@@ -4,7 +4,7 @@ import {
 	init as initApi,
 	save as set,
 	isLogged,
-} from '../../data-provider/google-drive/google-drive-api'
+} from '../../data-provider/google-drive/google-drive-api';
 
 let _isEnabled = false;
 
@@ -14,23 +14,23 @@ const onLibLoaded = async (options) => {
 		onError: onError,
 		defaultContent: [],
 		// TODO: apiKey, etc
-	}
+	};
 	await initApi({...defaultOptions, ...options}).catch(console.error);
-}
+};
 
 const onError = (error) => {
-	alert(error)
-}
+	alert(error);
+};
 
 // * @returns {{persons?: Object, updated?: number}}
 /**
  * Get persons from local storage.
  */
 const get = async () => {
-	console.log('🔊', 'getting from grive')
+	console.log('🔊', 'getting from grive');
 	const response = await fetchData();
 	if (typeof response !== 'object') {
-		onError('Unknown reposonse from server')
+		onError('Unknown reposonse from server');
 		return null;
 	}
 	let persons = {};
@@ -48,16 +48,16 @@ const get = async () => {
 			name: unescape(persons[id].name),
 		};
 		return all;
-	}, {})
+	}, {});
 	return {persons: result, updated: response.updated || 0};
-}
+};
 
 const init = async () => {
 	const response = await fetch('https://apis.google.com/js/api.js');
 	eval(await response.text());
 	await onLibLoaded();
 	_isEnabled = true;
-}
+};
 
 const isEnabled = () => _isEnabled;
 
@@ -68,4 +68,4 @@ export default {
 	login,
 	isLogged,
 	isEnabled,
-}
+};

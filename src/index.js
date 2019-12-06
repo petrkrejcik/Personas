@@ -1,10 +1,10 @@
-import useDataProviders from './data-provider/data-provider-middleware';
-import * as store from './store/store'
-import {setup as setupRouter} from './router/router'
-import localStorage from './app/use-local-storage'
-import {ACTIONS} from './app/app-action'
+import useDataProviders from './data-provider/data-provider';
+import * as store from './store/store';
+import {setup as setupRouter} from './router/router';
+import localStorage from './app/use-local-storage';
+import {ACTIONS} from './app/app-action';
 import googleDrive from './data-provider/google-drive/google-drive-model';
-import './app/app.css'
+import './app/app.css';
 
 // import {createId} from './person/person-util'
 // const names = [
@@ -20,7 +20,7 @@ import './app/app.css'
 window.store = store; // TODO: for debug only
 if (window.Cypress) {
 	// For Cypress testing library
-	window.store = store
+	window.store = store;
 }
 
 // useDataProviders([localStorage]);

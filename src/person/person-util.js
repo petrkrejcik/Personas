@@ -4,5 +4,5 @@ export const createId = (name) => {
 		.toLowerCase()
 		.split(' ')
 		.filter(Boolean)
-		.join('-')
-}
+		.join('-');
+};

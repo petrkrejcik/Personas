@@ -3,4 +3,4 @@ export const ROUTES = {
 	login: 'login',
 	add: 'add',
 	edit: 'edit',
-}
+};

@@ -1,23 +1,23 @@
-import {reducer} from './reducer'
+import {reducer} from './reducer';
 
 /** @type {Array<Function>} */
-const listeners = []
+const listeners = [];
 
 /** @type {Array<Function>} */
-const listenersAfter = []
+const listenersAfter = [];
 
 /** @type {State} */
 let state = {
 	persons: {},
-}
+};
 
 /**
  * Returns state
  * @returns {State}
  */
 const getState = () => {
-	return state
-}
+	return state;
+};
 
 /**
  * Sets a new state
@@ -27,26 +27,26 @@ const setState = (newState) => {
 	state = {
 		...state,
 		...newState,
-	}
-}
+	};
+};
 
 /**
  * Dispatches an action which goes to the reducer.
- * @param {Action} action Action
+ * @param {Action} action
  */
 const dispatch = (action) => {
-	const state = getState()
-	console.log('🔊', action.type, action.payload || '')
-	if (!action.type) return
-	const newState = reducer(state, action)
-	setState(newState)
+	const state = getState();
+	console.log('🔊', action.type, action.payload || '');
+	if (!action.type) return;
+	const newState = reducer(state, action);
+	setState(newState);
 	listeners.forEach(listener => {
-		listener(action)
-	})
+		listener(action);
+	});
 	listenersAfter.forEach(fn => {
-		fn(action)
-	})
-}
+		fn(action);
+	});
+};
 
 /**
  * Subscribes to a state update.
@@ -54,20 +54,20 @@ const dispatch = (action) => {
  * @param {Function} callback Called after state is updated
  */
 const subscribe = (callback) => {
-	listeners.push(callback)
-}
+	listeners.push(callback);
+};
 
 /**
  * Adds listenersAfter to stack.
  * @param {Function} fn
  */
 const subscribeAfter = (fn) => {
-	listenersAfter.push(fn)
-}
+	listenersAfter.push(fn);
+};
 
 export {
 	subscribeAfter,
 	subscribe,
 	dispatch,
 	getState,
-}
+};

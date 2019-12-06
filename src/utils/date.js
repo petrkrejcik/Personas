@@ -4,25 +4,25 @@
  * @returns {{day: string, month: string, year: string}} object with day, month, year
  */
 export const parseDate = (isoDate) => {
-	const date = new Date(isoDate)
-	const day = date.getDate() + ''
-	const month = date.getMonth() + 1 + ''
-	const year = date.getFullYear() + ''
-	return {day, month, year}
-}
+	const date = new Date(isoDate);
+	const day = date.getDate() + '';
+	const month = date.getMonth() + 1 + '';
+	const year = date.getFullYear() + '';
+	return {day, month, year};
+};
 
-export const createDate = (day, month, year) => new Date(year, month - 1, day)
+export const createDate = (day, month, year) => new Date(year, month - 1, day);
 
 export const createIso = (day, month, year) => {
-	const d = day.padStart(2, '0')
-	const m = month.padStart(2, '0')
-	return `${year}-${m}-${d}`
-}
+	const d = day.padStart(2, '0');
+	const m = month.padStart(2, '0');
+	return `${year}-${m}-${d}`;
+};
 
 export const formatDMY = (isoDate) => {
-	const {day, month, year} = parseDate(isoDate)
-	return `${day}. ${month}. ${year}`
-}
+	const {day, month, year} = parseDate(isoDate);
+	return `${day}. ${month}. ${year}`;
+};
 
 export const getNow = () => {
 	const date = new Date();
@@ -37,7 +37,7 @@ export const getNow = () => {
  */
 export const diffDays = (fromDate, toDate) => {
 	const createDate = (year, day, month) => new Date([year, month, day].join('-'));
-	if (!fromDate) return null
+	if (!fromDate) return null;
 	const [fromDay, fromMonth] = fromDate;
 	const [toDay, toMonth] = toDate;
 	const isToAfter = fromMonth <= toMonth && fromDay <=toDay;
@@ -47,4 +47,4 @@ export const diffDays = (fromDate, toDate) => {
 	const to = createDate(toYear, toDay, toMonth);
 	const diff = to.getTime() - from.getTime();
 	return Math.ceil(diff / 1000 / 60 / 60 / 24);
-}
+};

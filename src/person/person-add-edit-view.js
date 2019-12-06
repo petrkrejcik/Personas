@@ -1,17 +1,17 @@
-import {dispatch, getState} from '../store/store'
-import {birthdayPicker} from '../components/birthday-picker'
-import {editField, remove} from './person-actions'
-import {storeActiveElement} from '../app/app-action'
+import {dispatch, getState} from '../store/store';
+import {birthdayPicker} from '../components/birthday-picker';
+import {editField, remove} from './person-actions';
+import {storeActiveElement} from '../app/app-action';
 import {addTestAttribute, div, createDom} from '../utils/dom';
 
 /**
  * @param {{onSave: Function, onCancel: Function, onRemove: Function}} props
  */
 export default function render (props) {
-	const el = document.createElement('div')
-	el.classList.add('person')
-	const {personEdit} = getState()
-	if (!personEdit) throw new Error('Empty `personEdit')
+	const el = document.createElement('div');
+	el.classList.add('person');
+	const {personEdit} = getState();
+	if (!personEdit) throw new Error('Empty `personEdit');
 	const content = [
 		div({className: ['person__column', 'person__column-grow']}, [
 			renderName(personEdit.name),
@@ -24,38 +24,38 @@ export default function render (props) {
 				renderCancelButton(props.onCancel),
 			]),
 		]),
-	]
-	content.map((c) => el.appendChild(c))
-	return el
+	];
+	content.map((c) => el.appendChild(c));
+	return el;
 }
 
 const renderName = (name) => {
-	const el = document.createElement('input')
-	el.placeholder = 'Name'
-	el.classList.add('person__input')
-	addTestAttribute(el, 'add-input--name')
-	el.setAttribute('data-prsKey', 'add-input--name')
-	el.value = name
+	const el = document.createElement('input');
+	el.placeholder = 'Name';
+	el.classList.add('person__input');
+	addTestAttribute(el, 'add-input--name');
+	el.setAttribute('data-prsKey', 'add-input--name');
+	el.value = name;
 	el.addEventListener('input', e => {
-		dispatch(storeActiveElement())
-		dispatch(editField('name', el.value))
-	})
+		dispatch(storeActiveElement());
+		dispatch(editField('name', el.value));
+	});
 	// TODO: storeActiveElement na unfocus
-	return el
-}
+	return el;
+};
 
 const renderPicker = (day, month, year) => {
-	const el = document.createElement('div')
-	el.setAttribute('data-cy', 'add-input--birthday')
-	el.classList.add('person__input')
+	const el = document.createElement('div');
+	el.setAttribute('data-cy', 'add-input--birthday');
+	el.classList.add('person__input');
 	const [dayEl, monthEl, yearEl] = birthdayPicker({day, month, year}, (field, value) => {
-		dispatch(editField(field, value))
-	})
-	el.appendChild(dayEl)
-	el.appendChild(monthEl)
-	el.appendChild(yearEl)
-	return el
-}
+		dispatch(editField(field, value));
+	});
+	el.appendChild(dayEl);
+	el.appendChild(monthEl);
+	el.appendChild(yearEl);
+	return el;
+};
 
 const renderSaveButton = (personEdit, onSave) => {
 	return createDom('button', {
@@ -63,7 +63,7 @@ const renderSaveButton = (personEdit, onSave) => {
 		onClick: onSave,
 		testId: 'add-button--save',
 	}, 'OK');
-}
+};
 
 const renderCancelButton = (onCancel) => {
 	return createDom('span', {
@@ -71,7 +71,7 @@ const renderCancelButton = (onCancel) => {
 		onClick: onCancel,
 		testId: 'add-button--cancel',
 	}, 'Cancel');
-}
+};
 
 const renderRemoveButton = (onRemove) => {
 	return createDom('span', {

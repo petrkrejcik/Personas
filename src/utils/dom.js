@@ -5,9 +5,9 @@
  */
 export const addTestAttribute = (element, value) => {
 	// @ts-ignore
-	if (window && !window.Cypress) return
-	element.setAttribute('data-cy', value)
-}
+	if (window && !window.Cypress) return;
+	element.setAttribute('data-cy', value);
+};
 
 /**
  * Creates a DOM structure of elements.
@@ -25,14 +25,14 @@ export const createDom = (tag, attrs = {}, children = []) => {
 		if (typeof child === 'string') {
 			if (child.trim()[0] === '<') {
 				element.innerHTML = child; // Inject HTML into the element. Not ideal.
-				return
+				return;
 			}
 			child = document.createTextNode(child);
 		}
-		element.appendChild(child)
+		element.appendChild(child);
 	});
 	return element;
-}
+};
 
 const attachAttribute = (element) => (key, value) => {
 	switch (key) {

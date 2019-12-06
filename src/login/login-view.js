@@ -5,7 +5,7 @@ import {dispatch} from '../store/store';
 export default function render () {
 	const onClick = () => dispatch({type: DATA_PROVIDER.LOGIN});
 	const login = createDom('button', {onClick});
-	login.innerText = 'Login'
+	login.innerText = 'Login';
 	return (
 		div({}, login)
 	);

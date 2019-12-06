@@ -5,7 +5,7 @@ export const ACTIONS = {
 	SYNC_END: 'data-provider/sync-end',
 	LOGIN: 'data-provider/login',
 	SET: 'data-provider/set', // sets providers in store
-}
+};
 
 export const syncStart = () => ({type: ACTIONS.SYNC_START});
 export const syncEnd = () => ({type: ACTIONS.SYNC_END});

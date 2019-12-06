@@ -14,6 +14,7 @@ module.exports = {
 	rules: {
 		'camelcase': ['error', {'properties': 'never', 'ignoreDestructuring': true}],
 		'comma-dangle': ['error', 'always-multiline'],
+		'semi': 'error',
 		'consistent-return': 'error',
 		'indent': ['error', 'tab', {'SwitchCase': 1, 'MemberExpression': 'off'}],
 		'jsx-quotes': ['error', 'prefer-single'],
