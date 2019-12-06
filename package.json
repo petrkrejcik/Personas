@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html --global prs",
-    "build": "parcel build src/index.html --global prs --out-dir docs --public-url /personas/",
+    "build": "parcel build src/index.html --out-dir docs --public-url /Personas/",
     "test": "npx cypress open",
     "test-headless": "clear && npx cypress run",
     "lint": "npx eslint ./src",

@@ -73,30 +73,20 @@ npm run build
 1. Save to Google Drive
 
 ## TODO
-- [ ] Jak vycentroval edit ikonu taky vertikalne?
+- [ ] Center edit icon vertically
 - [ ] Sometimes Google throws error when syncing
-- [x] Sync when removing a person
 - [ ] Bigger spacing between buttons (edit button further from side)
-- [x] Sync with Google Drive
-- [x] Sync all providers between each other
 - [x] Make localStorage just another provider
-- [x] `Cancel` button when adding
-- [x] CSS: Responsive layout
-- [x] CSS: Header
 - [ ] CSS: Add/Edit person
-- [x] CSS: Persons remove overlay with buttons
-- [x] Store state locally
-- [x] Add new data provider
   - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one who will managed the connection to API/local database
 - [ ] Service worker - to work offline: cache google libs; cache persons
   - problem with hash in the filename
 - [ ] Better error messages (e.g. after unsuccessful sync)
-- [ ] Top bar
 - [ ] Remove obsolete JS and CSS files after build
-- [ ] Share persons - open URL with persons in query
 - [ ] Back button on mobile closes the app (create a router)
 - [ ] Pressing `Seen today` should not directly save but rather remember click and save on `Save` button
 - [ ] Loader
+- [ ] Share persons - open URL with persons in query
 
 ## Icons
 https://material.io/resources/icons/?style=baseline
