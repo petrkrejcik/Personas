@@ -1,6 +1,6 @@
-import dataProvider from '../../src/data-provider/data-provider-middleware';
-import {dispatch, getState} from '../../src/store/store'
-import {ACTIONS} from '../../src/app/app-action'
+import dataProvider from '../../src/data-provider/data-provider';
+import {dispatch, getState} from '../../src/store/store';
+import {ACTIONS} from '../../src/app/app-action';
 
 const waitMs = (ms) => async (cb) => {
 	await new Promise(resolve => setTimeout(resolve, ms));
