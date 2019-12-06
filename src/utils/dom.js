@@ -15,7 +15,7 @@ export const addTestAttribute = (element, value) => {
  *
  * @param {string} tag Type of trag (div, img)
  * @param {Object?} attrs
- * @param {Array<HTMLElement>?} children
+ * @param {string|Array<HTMLElement>?} children
  */
 export const createDom = (tag, attrs = {}, children = []) => {
 	const element = document.createElement(tag);

@@ -29,6 +29,9 @@ npm run build
 - Components are divided into two layers - model and view.
 - Component model takes data from state and converts them to props for view.
 
+## Dependencies
+- Google Drive API library
+
 #### Google Drive API Console
 [Google Console](https://console.developers.google.com/apis/credentials?project=personas-220021&folder&organizationId)
 
@@ -70,9 +73,10 @@ npm run build
 1. Save to Google Drive
 
 ## TODO
+- [ ] Jak vycentroval edit ikonu taky vertikalne?
 - [ ] Sometimes Google throws error when syncing
 - [x] Sync when removing a person
-- [ ] Create good ID
+- [ ] Bigger spacing between buttons (edit button further from side)
 - [x] Sync with Google Drive
 - [x] Sync all providers between each other
 - [x] Make localStorage just another provider

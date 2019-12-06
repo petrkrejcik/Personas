@@ -31,6 +31,12 @@ export const editPerson = (person) => ({type: ACTIONS.editPerson, payload: perso
 export const save = (person) => ({type: ACTIONS.save, payload: person})
 
 /**
+ * Removes person from state.
+ * @param {string} id
+ */
+export const remove = (id) => ({type: ACTIONS.REMOVE, payload: id})
+
+/**
  * Saves all persons to the state and overwrites all existing.
  * @param {Person[]} persons
  */

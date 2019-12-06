@@ -1,12 +1,12 @@
 // @ts-check
 import {dispatch, getState} from '../store/store'
 import {birthdayPicker} from '../components/birthday-picker'
-import {editField} from './person-actions'
+import {editField, remove} from './person-actions'
 import {storeActiveElement} from '../app/app-action'
-import {addTestAttribute} from '../utils/dom'
+import {addTestAttribute, div, createDom} from '../utils/dom';
 
 /**
- * @param {{onSave: Function, onCancel: Function}} props 
+ * @param {{onSave: Function, onCancel: Function, onRemove: Function}} props
  */
 export default function render (props) {
 	const el = document.createElement('div')
@@ -14,10 +14,17 @@ export default function render (props) {
 	const {personEdit} = getState()
 	if (!personEdit) throw new Error('Empty `personEdit')
 	const content = [
-		renderName(personEdit.name),
-		renderPicker(personEdit.day, personEdit.month, personEdit.year),
-		renderSaveButton(personEdit, props.onSave),
-		renderCancelButton(props.onCancel),
+		div({className: ['person__column', 'person__column-grow']}, [
+			renderName(personEdit.name),
+			renderPicker(personEdit.day, personEdit.month, personEdit.year),
+		]),
+		div({className: 'person__column'}, [
+			renderSaveButton(personEdit, props.onSave),
+			div({className: 'person__secondaryButtons'}, [
+				renderRemoveButton(props.onRemove),
+				renderCancelButton(props.onCancel),
+			]),
+		]),
 	]
 	content.map((c) => el.appendChild(c))
 	return el
@@ -26,7 +33,7 @@ export default function render (props) {
 const renderName = (name) => {
 	const el = document.createElement('input')
 	el.placeholder = 'Name'
-	el.classList.add('add-input--name')
+	el.classList.add('person__input')
 	addTestAttribute(el, 'add-input--name')
 	el.setAttribute('data-prsKey', 'add-input--name')
 	el.value = name
@@ -41,6 +48,7 @@ const renderName = (name) => {
 const renderPicker = (day, month, year) => {
 	const el = document.createElement('div')
 	el.setAttribute('data-cy', 'add-input--birthday')
+	el.classList.add('person__input')
 	const [dayEl, monthEl, yearEl] = birthdayPicker({day, month, year}, (field, value) => {
 		dispatch(editField(field, value))
 	})
@@ -51,19 +59,24 @@ const renderPicker = (day, month, year) => {
 }
 
 const renderSaveButton = (personEdit, onSave) => {
-	const el = document.createElement('button')
-	el.innerText = 'Save'
-	el.addEventListener('click', () => onSave())
-	el.classList.add('add-button--save')
-	el.setAttribute('data-cy', 'add-button--save')
-	return el
+	return createDom('button', {
+		className: ['person__button', 'person__button--primary'],
+		onClick: onSave,
+		testId: 'add-button--save',
+	}, 'OK');
 }
 
 const renderCancelButton = (onCancel) => {
-	const el = document.createElement('button')
-	el.innerText = 'Cancel'
-	el.addEventListener('click', onCancel)
-	el.classList.add('add-button--cancel')
-	addTestAttribute(el, 'add-button--cancel')
-	return el
+	return createDom('span', {
+		className: ['button', 'person__button--secondary'],
+		onClick: onCancel,
+		testId: 'add-button--cancel',
+	}, 'Cancel');
 }
+
+const renderRemoveButton = (onRemove) => {
+	return createDom('span', {
+		className: ['button', 'person__button--secondary', 'warning'],
+		onClick: onRemove,
+	}, 'Remove');
+};

@@ -8,10 +8,9 @@ let defaultContent = null
 
 const init = async (options = {}) => {
 	setupOptions(options)
-	console.info('👉', 'init gdrive')
 	return new Promise ((resolve, reject) => {
 		gapi.load('client:auth2', () => {
-			initClient().then(resolve)
+			initClient().then(resolve).catch(reject);
 		})
 	})
 }
@@ -34,6 +33,7 @@ const initClient = () => {
 			updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
 			resolve({isInitiated: true})
 		})
+		.catch(reject)
 	})
 }
 

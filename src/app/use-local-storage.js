@@ -25,12 +25,7 @@ const isLogged = () => true;
 /**
  * Initialization
  */
-const init = () => {
-	// const isEnabled = true;
-	// const promise = await true;
-	// options.onSignInChange(true);
-	// return promise;
-}
+const init = () => {};
 
 export default {
 	init,

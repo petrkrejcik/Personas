@@ -7,31 +7,59 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: left;
-	/* padding: 0px 8px; */
+	justify-content: center;
+	align-items: center;
+	padding: 0px 8px;
 	max-width: 600px;
+}
+.persons.empty {
+	height: 100%;
 }
 
 .person {
-	position: relative;
-	margin-top: 5px;
-	box-shadow: 0px 1px 1px 0px #d0d0d0;
-	background-color: #fff;
-	/* padding: 7px 10px; */
-	/* max-width: 200px; */
-	/* width: 100%; */
-	/* od Kuby */
+	display: flex;
+	margin-top: 0.7em;
+	box-shadow: 0px 1px 0px 0px #efefef;
+	padding-bottom: 1em;
 	max-width: 600px;
+	min-height: 85px;
 	width: 100%;
+}
+
+.person__column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.person__column-grow {
+	flex-grow: 1;
+}
+
+.person__button {
+	box-sizing: border-box;
 
 }
 
-/* @media only screen and (min-width: 600px) {
-	.persons {
-		width: 80%;
-		margin: 0 auto 10px auto;
-	}
-} */
+.person__button--primary {
+	max-width: 10em;
+}
+
+.person__button--secondary {
+	/* border: none; */
+}
+
+.person__secondaryButtons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.person__removeOverlay {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
 
 .person-title {
 	font-weight: bold;
@@ -45,9 +73,13 @@
 	margin-bottom: 40px;
 }
 
-.edit {
-	display: none;
-	width: 100%;
+.person__input, .person__input > select {
+	font-size: inherit;
+	border-bottom: 1px solid #efefef;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background-color: transparent;
 }
 
 .edit input, .edit button {

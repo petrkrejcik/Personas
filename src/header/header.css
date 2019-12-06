@@ -1,16 +1,20 @@
 .app-header {
     width: 100%;
-    height: 40px;
+    height: 3em;
     padding: 5px 10px;
 		display: flex;
 		border-bottom: 1px solid #fffafa;
 		box-shadow: 0px 3px 3px 0px #d0d0d0;
+		box-sizing: border-box;
+		align-items: center;
 }
 
 .header__title {
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: auto;
+		flex-basis: auto;
+		font-family: "AppleSDGothicNeo-Thin";
+		font-weight: normal;
 }
 
 .spaceEl {
@@ -21,11 +25,30 @@
 .header-button--sync, .header-button--add {
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 30px;
+		flex-basis: 2.3em;
+		display: flex;
+    justify-content: center;
 }
 
-.header__sync-error > svg {
-	fill: red;
+.header-button--sync > svg, .header-button--add > svg {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.header__syncWrap {
+	position: relative;
+}
+
+.header-button--warn {
+	position: absolute;
+	bottom: -9px;
+	left: 10px;
+}
+
+.header-button--warn > svg {
+    height: 1em;
+		width: 1em;
+		fill: red;
 }
 
 .header__sync-inProgress > svg {
