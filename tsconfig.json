@@ -5,6 +5,11 @@
     "types": ["gapi", "gapi.auth2", "gapi.client", "gapi.client.drive"],
     "outDir": "./.tmp",
 		"allowJs": true,
-		"lib": ["es2017", "dom"]
-  }
+		"checkJs": true,
+		"lib": ["es2017", "dom"],
+		"skipLibCheck": true
+  },
+	"include": [
+		"src/**/*"
+	]
 }

@@ -1,4 +1,3 @@
-// @ts-check
 const APP_FOLDER = 'App-Personas'
 const FILE_NAME = 'persons.json'
 let onSignInChangeHandler = Function

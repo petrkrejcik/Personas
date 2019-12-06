@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * Parses `2001-12-31` to separate values
  * @param {string} isoDate

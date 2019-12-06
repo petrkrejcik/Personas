@@ -1,4 +1,3 @@
-// @ts-check
 export const ACTIONS = {
 	editField: 'person/editField', // when typing in add/edit fields
 	editPerson: 'person/editPerson', // when setting all fields to edit

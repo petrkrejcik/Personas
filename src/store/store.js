@@ -1,4 +1,3 @@
-// @ts-check
 import {reducer} from './reducer'
 
 /** @type {Array<Function>} */

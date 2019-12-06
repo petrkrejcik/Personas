@@ -1,4 +1,3 @@
-// @ts-check
 import {
 	login,
 	fetchData,
@@ -23,6 +22,7 @@ const onError = (error) => {
 	alert(error)
 }
 
+// * @returns {{persons?: Object, updated?: number}}
 /**
  * Get persons from local storage.
  */

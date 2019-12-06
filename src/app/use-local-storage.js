@@ -1,4 +1,3 @@
-// @ts-check
 const storage = window.localStorage;
 
 /**

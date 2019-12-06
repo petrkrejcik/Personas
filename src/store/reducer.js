@@ -1,4 +1,3 @@
-// @ts-check
 import {ACTIONS as PERSON} from '../person/person-actions'
 import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions'
 import {ACTIONS as APP} from '../app/app-action'

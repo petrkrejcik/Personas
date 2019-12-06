@@ -1,4 +1,3 @@
-// @ts-check
 /**
  *
  * @param {HTMLElement} element
@@ -13,9 +12,9 @@ export const addTestAttribute = (element, value) => {
 /**
  * Creates a DOM structure of elements.
  *
- * @param {string} tag Type of trag (div, img)
+ * @param {string} tag Type of tag (div, img)
  * @param {Object?} attrs
- * @param {string|Array<HTMLElement>?} children
+ * @param {string|Array<HTMLElement|string|Text>?} children
  */
 export const createDom = (tag, attrs = {}, children = []) => {
 	const element = document.createElement(tag);

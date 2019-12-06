@@ -1,4 +1,3 @@
-// @ts-check
 import useDataProviders from './data-provider/data-provider-middleware';
 import * as store from './store/store'
 import {setup as setupRouter} from './router/router'

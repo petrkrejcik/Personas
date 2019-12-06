@@ -1,4 +1,3 @@
-// @ts-check
 import {ACTIONS, setProviders, syncStart, syncEnd} from './actions'
 import {ACTIONS as APP_ACTIONS} from '../app/app-action'
 import {getState, dispatch, subscribeAfter} from '../store/store'
@@ -8,9 +7,9 @@ import {ACTIONS as PERSON, saveAll} from '../person/person-actions'
 /**
  * @typedef {Object} DataProvider
  * @property {() => void} init
- * @property {() => {persons?: Object, updated?: number}} get
+ * @property {() => Promise<{persons?: Object, updated?: number}>} get
  * @property {(data: Object) => void} set
- * @property {() => void} login?
+ * @property {() => void=} login
  * @property {() => boolean} isLogged
  * @property {() => boolean} isEnabled
  */

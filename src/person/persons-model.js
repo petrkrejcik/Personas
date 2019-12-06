@@ -1,4 +1,3 @@
-// @ts-check
 /// <reference path="./person-types.d.ts" />
 
 import {dispatch, getState} from '../store/store'

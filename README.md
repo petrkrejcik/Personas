@@ -75,14 +75,10 @@ npm run build
 ## TODO
 - [ ] Center edit icon vertically
 - [ ] Sometimes Google throws error when syncing
-- [ ] Bigger spacing between buttons (edit button further from side)
-- [x] Make localStorage just another provider
 - [ ] CSS: Add/Edit person
-  - `resetSeen` calls `dispatch`. This method should be used instead of `updateContent`. When I get rid of it, `data-provider` will be the only one who will managed the connection to API/local database
 - [ ] Service worker - to work offline: cache google libs; cache persons
   - problem with hash in the filename
 - [ ] Better error messages (e.g. after unsuccessful sync)
-- [ ] Remove obsolete JS and CSS files after build
 - [ ] Back button on mobile closes the app (create a router)
 - [ ] Pressing `Seen today` should not directly save but rather remember click and save on `Save` button
 - [ ] Loader

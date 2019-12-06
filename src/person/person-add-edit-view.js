@@ -1,4 +1,3 @@
-// @ts-check
 import {dispatch, getState} from '../store/store'
 import {birthdayPicker} from '../components/birthday-picker'
 import {editField, remove} from './person-actions'
