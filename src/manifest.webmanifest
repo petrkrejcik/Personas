@@ -1,7 +1,7 @@
 {
     "name": "Personas",
 		"short_name": "Personas",
-		"start_url": "/",
+		"start_url": "/Personas",
     "icons": [
         {
             "src": "../assets/android-chrome-192x192.png",
