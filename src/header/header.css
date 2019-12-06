@@ -1,0 +1,62 @@
+.app-header {
+    width: 100%;
+    height: 3em;
+    padding: 5px 10px;
+		display: flex;
+		border-bottom: 1px solid #fffafa;
+		box-shadow: 0px 3px 3px 0px #d0d0d0;
+		box-sizing: border-box;
+		align-items: center;
+}
+
+.header__title {
+    flex-grow: 0;
+    flex-shrink: 0;
+		flex-basis: auto;
+		font-family: "AppleSDGothicNeo-Thin";
+		font-weight: normal;
+}
+
+.spaceEl {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.header-button--sync, .header-button--add {
+    flex-grow: 0;
+    flex-shrink: 0;
+		flex-basis: 2.3em;
+		display: flex;
+    justify-content: center;
+}
+
+.header-button--sync > svg, .header-button--add > svg {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.header__syncWrap {
+	position: relative;
+}
+
+.header-button--warn {
+	position: absolute;
+	bottom: -9px;
+	left: 10px;
+}
+
+.header-button--warn > svg {
+    height: 1em;
+		width: 1em;
+		fill: red;
+}
+
+.header__sync-inProgress > svg {
+	animation:spin 2s linear infinite;
+}
+
+@keyframes spin {
+	100% {
+		transform:rotate(-360deg);
+	}
+}

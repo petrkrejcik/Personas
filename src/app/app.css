@@ -1,0 +1,43 @@
+html {
+	height: 100%;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	margin: 0;
+	font-size: 18px;
+	height: 100%;
+	-webkit-user-select: none; /* disable text select */
+}
+
+#app {
+	height: 100%;
+}
+
+button, .button {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.warning {
+	color: #F43535;
+}
+
+.icon {
+	display: flex;
+	justify-content: center;
+	height: 2em;
+	width: 2em;
+	cursor: pointer;
+}
+
+.icon > svg {
+	fill: #aaaaaa;
+}
+
+.googleDriveButton {
+	display: none;
+}

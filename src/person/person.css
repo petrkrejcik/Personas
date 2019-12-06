@@ -1,0 +1,99 @@
+.personsEmpty {
+    text-align: center;
+}
+
+.persons {
+	margin: 0 auto 10px auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 8px;
+	max-width: 600px;
+}
+.persons.empty {
+	height: 100%;
+}
+
+.person {
+	display: flex;
+	margin-top: 0.7em;
+	box-shadow: 0px 1px 0px 0px #efefef;
+	padding-bottom: 1em;
+	max-width: 600px;
+	min-height: 85px;
+	width: 100%;
+}
+
+.person__column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.person__column-grow {
+	flex-grow: 1;
+}
+
+.person__button {
+	box-sizing: border-box;
+
+}
+
+.person__button--primary {
+	max-width: 10em;
+}
+
+.person__button--secondary {
+	/* border: none; */
+}
+
+.person__secondaryButtons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.person__removeOverlay {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.person-title {
+	font-weight: bold;
+}
+
+.buttonSeen {
+	margin-left: 10px;
+}
+
+.seen-save {
+	margin-bottom: 40px;
+}
+
+.person__input, .person__input > select {
+	font-size: inherit;
+	border-bottom: 1px solid #efefef;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background-color: transparent;
+}
+
+.edit input, .edit button {
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+}
+
+.edit select {
+	margin: 15px;
+}
+
+.edit-save {
+	background-color: #daf1ff;
+	border: none;
+	padding: 15px;
+}
