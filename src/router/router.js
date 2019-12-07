@@ -1,9 +1,6 @@
 import {subscribe, dispatch} from '../store/store';
-import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions';
-import Login from '../login/login-view';
 import Header from '../header/header';
 import Persons from '../person/persons-view';
-import {ROUTES} from '../router/routes';
 import {ACTIONS} from '../router/router-actions';
 import * as personModel from '../person/persons-model';
 import {getActiveElement} from '../app/app-action';
@@ -24,15 +21,6 @@ const route = action => {
 	const route = getRoute();
 	let body = [];
 	switch (route) {
-		case ROUTES.login: {
-			body.push(
-				Header(),
-				Login({
-					handleLoginClick: () => dispatch({type: DATA_PROVIDER.LOGIN}),
-				})
-			);
-			break;
-		}
 		default: {
 			body = [
 				Header(),

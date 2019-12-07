@@ -1,9 +1,9 @@
 import useDataProviders from './data-provider/data-provider';
 import * as store from './store/store';
-import {setup as setupRouter} from './router/router';
+import {setup} from './router/router';
 import localStorage from './app/use-local-storage';
-import {ACTIONS} from './app/app-action';
 import googleDrive from './data-provider/google-drive/google-drive-model';
+import {ACTIONS} from './app/app-action';
 import './app/app.css';
 
 // import {createId} from './person/person-util'
@@ -26,5 +26,5 @@ if (window.Cypress) {
 // useDataProviders([localStorage]);
 useDataProviders([localStorage, googleDrive]);
 
-setupRouter();
+setup();
 store.dispatch({type: ACTIONS.init});

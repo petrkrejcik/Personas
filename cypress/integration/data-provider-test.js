@@ -20,7 +20,7 @@ const providerMock = (defaults = {}) => {
 		set,
 		isLogged,
 		isEnabled,
-	}
+	};
 };
 
 const stored1 = {
@@ -64,8 +64,8 @@ describe('Data provider', () => {
 		const wait1ms = waitMs(1);
 		return await wait1ms(() => {
 			expect(getState().persons).to.deep.equal({});
-		})
-	})
+		});
+	});
 
 	it('load from one', async () => {
 		const p1 = providerMock({stored: stored1});
@@ -75,8 +75,8 @@ describe('Data provider', () => {
 		const wait1ms = waitMs(1);
 		return await wait1ms(() => {
 			expect(getState().persons).to.deep.equal(stored1.persons);
-		})
-	})
+		});
+	});
 
 	it('synces with two', async () => {
 		const p1 = providerMock({stored: stored1});
@@ -87,8 +87,8 @@ describe('Data provider', () => {
 		const wait1ms = waitMs(1);
 		return await wait1ms(() => {
 			expect(getState().persons['foo-name'].name).to.equal('Foo Name Updated');
-		})
-	})
+		});
+	});
 
 	it('synces with two vice versa', async () => {
 		const p1 = providerMock({stored: stored1});
@@ -99,8 +99,8 @@ describe('Data provider', () => {
 		const wait1ms = waitMs(1);
 		return await wait1ms(() => {
 			expect(getState().persons['foo-name'].name).to.equal('Foo Name Updated');
-		})
-	})
+		});
+	});
 	it('does not remove', async () => {
 		const p1 = providerMock({stored: stored1});
 		const p2 = providerMock({stored: stored2});
@@ -111,6 +111,6 @@ describe('Data provider', () => {
 		const wait1ms = waitMs(1);
 		return await wait1ms(() => {
 			expect(getState().persons['foo-name'].name).to.equal('Foo Name Updated');
-		})
-	})
-})
+		});
+	});
+});

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "types": ["gapi", "gapi.auth2", "gapi.client", "gapi.client.drive"],
+    "types": ["cypress", "gapi", "gapi.auth2", "gapi.client", "gapi.client.drive"],
     "outDir": "./.tmp",
 		"allowJs": true,
 		"checkJs": true,
@@ -10,6 +10,8 @@
 		"skipLibCheck": true
   },
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"cypress/integration/**/*",
+		"cypress/support/**/*.ts"
 	]
 }

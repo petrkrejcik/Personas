@@ -19,6 +19,7 @@ export const storeActiveElement = () => {
 export const getActiveElement = () => {
 	const key = getState().activeElement;
 	if (!key) return null;
+	/** @type {HTMLInputElement} */
 	const el = document.querySelector(`[data-prsKey=${key}]`);
 	return el;
 };

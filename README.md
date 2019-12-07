@@ -1,27 +1,21 @@
 # Personas
 
 ## Devstack
-- [https://parceljs.org/getting_started.html](parcel.js)
 - Vanilla JS
-
-## Install
-```sh
-npm i
-```
 
 ## Run
 ```sh
+npm i
 npm start
 ```
 
 - Open [http://localhost:1234]()
-- Turn off adBlock
 
 ## Build
 ```sh
 npm run build
 ```
-- Will build app into `/docs` folder with publish URL set to `/personas`.
+- Will build app into `/docs` folder with publish URL set to `/Personas`.
 - Just commit this dir on GitHub and it will work on https://petrkrejcik.github.io/personas
 
 ## How it works
@@ -30,6 +24,7 @@ npm run build
 - Component model takes data from state and converts them to props for view.
 
 ## Dependencies
+- [ParcelJS](https://parceljs.org/getting_started.html)
 - Google Drive API library
 
 #### Google Drive API Console
@@ -46,30 +41,13 @@ npm run build
 
 [Search parameters](https://developers.google.com/drive/api/v3/search-parameters)
 
-## Flow
-1. Response from server with HTML containing loading state
-1. Lookup in local storage for used storage (GDrive/local/none)
-1. (if storage selected) Fetch library for working with current storage
-1. (if storage selected) Fetch data from the storage
-1. Show data or empty screen
-
 ## Sync Flow
 1. Load app
 1. Load data from data providers (localStorage, GDrive)
-1. When there are more than 1 provider:
-1a. Merge data together
-- mam data ulozeny na GDrive
-- zapnu appku na novym devicu
-- appka je prazdna
-- vytvorim tam personu
-- dam sync s GDrive
-- cely GDrive se smaze, protoze localStorage je novejsi
-
-1. Save to state
-
+1. Save to local state
 1. Add/Edit/Delete person in app
 1. Save to state
-1. Save to (overwrite) localStorage
+1. Save to localStorage
 1. Save to Google Drive
 
 ## TODO
