@@ -4,7 +4,7 @@
  * @property {PersonEdit=} personEdit
  * @property {Element=} activeElement
  * @property {string=} deleteOverlayId
- * @property {Array<import("../data-provider/data-provider-types").DataProvider>=} dataProviders
+ * @property {Array<import("../data-provider/data-provider-types.js").DataProvider>=} dataProviders
  * @property {boolean=} isAddingPerson
  * @property {boolean=} isSyncing
  */

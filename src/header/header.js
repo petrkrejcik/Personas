@@ -1,6 +1,6 @@
 import {dispatch, getState} from '../store/store';
 import {goToAdd} from '../router/router-actions';
-import {DEFAULTS as DEFAULT_PERSON} from '../person/persons-model';
+import {DEFAULTS as DEFAULT_PERSON} from '../person/person-model';
 import {editPerson, toggleAdd} from '../person/person-actions';
 import {ACTIONS as DATA_PROVIDER} from '../data-provider/actions';
 import {isSyncOk} from '../data-provider/data-provider';

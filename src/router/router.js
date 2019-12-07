@@ -1,8 +1,8 @@
 import {subscribe, dispatch} from '../store/store';
 import Header from '../header/header';
-import Persons from '../person/persons-view';
+import Persons from '../person/person-view';
 import {ACTIONS} from '../router/router-actions';
-import * as personModel from '../person/persons-model';
+import * as personModel from '../person/person-model';
 import {getActiveElement} from '../app/app-action';
 
 const getRoute = () => {
