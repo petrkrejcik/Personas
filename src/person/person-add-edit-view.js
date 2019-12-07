@@ -17,6 +17,7 @@ export default function render (props) {
 			renderName(personEdit.name),
 			renderPicker(personEdit.day, personEdit.month, personEdit.year),
 		]),
+		div({className: 'spaceEl'}, ''),
 		div({className: 'person__column'}, [
 			renderSaveButton(personEdit, props.onSave),
 			div({className: 'person__secondaryButtons'}, [
@@ -47,7 +48,7 @@ const renderName = (name) => {
 const renderPicker = (day, month, year) => {
 	const el = document.createElement('div');
 	el.setAttribute('data-cy', 'add-input--birthday');
-	el.classList.add('person__input');
+	el.classList.add('person__datepicker');
 	const [dayEl, monthEl, yearEl] = birthdayPicker({day, month, year}, (field, value) => {
 		dispatch(editField(field, value));
 	});
@@ -66,7 +67,7 @@ const renderSaveButton = (personEdit, onSave) => {
 };
 
 const renderCancelButton = (onCancel) => {
-	return createDom('span', {
+	return createDom('button', {
 		className: ['button', 'person__button--secondary'],
 		onClick: onCancel,
 		testId: 'add-button--cancel',
@@ -74,7 +75,7 @@ const renderCancelButton = (onCancel) => {
 };
 
 const renderRemoveButton = (onRemove) => {
-	return createDom('span', {
+	return createDom('button', {
 		className: ['button', 'person__button--secondary', 'warning'],
 		onClick: onRemove,
 	}, 'Remove');

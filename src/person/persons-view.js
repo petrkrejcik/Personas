@@ -37,7 +37,6 @@ const renderPerson = onCancel => person => {
 	if (personEdit && personEdit.id === person.id) return renderEditOverlay(person, onCancel);
 
 	const onEditClick = person.onEditClick.bind(null, person.id);
-	const onRemoveClick = person.onRemoveClick.bind(null, person.id);
 	return (
 		div({className: 'person', testId: `person-${person.id}`}, [
 			div({className: ['person__column', 'person__column-grow']}, [
@@ -54,22 +53,21 @@ const renderPerson = onCancel => person => {
 };
 
 const renderEmpty = () => {
-	return div({className: 'personsEmpty', testId: 'personsEmpty'}, ['No persons created yetty.']);
+	return div({className: 'personsEmpty', testId: 'personsEmpty'}, ['No persons created yet.']);
 };
 
 const renderRemoveOverlay = person => {
-	console.log('🔊', 'renderRemoveOverlay');
 	const onConfirmClick = ev => person.remove(person.id);
 	const onCancelClick = person.cancelRemove.bind(null, null);
 	return (
-		div({className: 'person', testId: `person-${person.id}`}, [
-			div({className: 'person__removeOverlay', testId: 'remove-overlay'}, [
+		div({className: ['person', 'person__remove'], testId: `person-${person.id}`}, [
+			div({className: 'person__removeWrap', testId: 'remove-overlay'}, [
 				createDom('button', {
-					className: ['person__button', 'person__button--warning'],
+					className: ['person__button--grow', 'person__button--warning'],
 					onClick: onConfirmClick,
 				}, 'Remove'),
 				createDom('button', {
-					className: ['person__button'],
+					className: ['person__button--grow', 'person__button--secondary'],
 					onClick: onCancelClick,
 				}, 'Cancel'),
 			]),

@@ -3,17 +3,18 @@
 }
 
 .persons {
-	margin: 0 auto 10px auto;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	padding: 0px 8px;
 	max-width: 600px;
+	height: calc(100% - 3em);
 }
 .persons.empty {
-	height: 100%;
+	align-items: center;
 }
 
 .person {
@@ -38,15 +39,19 @@
 
 .person__button {
 	box-sizing: border-box;
-
 }
 
 .person__button--primary {
-	max-width: 10em;
 }
 
 .person__button--secondary {
-	/* border: none; */
+	min-width: 4em;
+	text-align: center;
+	border: none;
+}
+
+.person__button--grow {
+	flex-grow: 1;
 }
 
 .person__secondaryButtons {
@@ -54,10 +59,14 @@
 	justify-content: space-evenly;
 }
 
-.person__removeOverlay {
-	display: flex;
-	width: 100%;
+.person__remove {
 	justify-content: center;
+}
+
+.person__removeWrap {
+	display: flex;
+	width: 35%;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
@@ -73,13 +82,16 @@
 	margin-bottom: 40px;
 }
 
-.person__input, .person__input > select {
+.person__input, .person__datepicker > select {
 	font-size: inherit;
 	border-bottom: 1px solid #efefef;
 	border-top: none;
 	border-left: none;
 	border-right: none;
 	background-color: transparent;
+}
+.person__datepicker > select {
+	margin-right: 1em;
 }
 
 .edit input, .edit button {
