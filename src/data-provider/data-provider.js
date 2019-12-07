@@ -85,6 +85,7 @@ const sync = async () => {
 	dispatch(saveAll(persons)); // save to local state
 
 	const providersToSync = providers.filter((_, i) => results[i].updated !== updated);
+	alert(`${providers.length} ${providersToSync.length}`);
 	const promisesSet = providersToSync.map(set({persons, updated}));
 	await Promise.all(promisesSet);
 	dispatch(syncEnd());
