@@ -43,6 +43,7 @@
 	position: absolute;
 	bottom: -9px;
 	left: 10px;
+	pointer-events: none;
 }
 
 .header-button--warn > svg {
