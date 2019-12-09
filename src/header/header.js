@@ -27,7 +27,7 @@ export default function render () {
 const renderTitle = () => {
 	const el = document.createElement('h1');
 	el.classList.add('header__title');
-	el.innerHTML = 'Persons';
+	el.innerHTML = 'Personsa';
 	return el;
 };
 
