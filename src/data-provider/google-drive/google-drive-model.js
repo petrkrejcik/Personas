@@ -53,10 +53,14 @@ const get = async () => {
 };
 
 const init = async () => {
-	const response = await fetch('https://apis.google.com/js/api.js');
-	eval(await response.text());
-	await onLibLoaded();
-	_isEnabled = true;
+	try {
+		const response = await fetch('https://apis.google.com/js/api.js');
+		eval(await response.text());
+		await onLibLoaded();
+		_isEnabled = true;
+	} catch {
+		console.error('Cannot fetch Google API.');
+	}
 };
 
 const isEnabled = () => _isEnabled;

@@ -28,3 +28,7 @@ useDataProviders([localStorage, googleDrive]);
 
 setup();
 store.dispatch({type: ACTIONS.init});
+
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('sw.js');
+}
