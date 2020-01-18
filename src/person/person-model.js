@@ -35,6 +35,8 @@ const getPersons = () => {
 		.map(person => {
 			const now = getNow();
 			const {day, month} = parseDate(person.birthday);
+			console.log(diffDays(now, [parseInt(day, 10), parseInt(month, 10)]));
+			
 			return {
 				...person,
 				age: getAge(person.birthday),

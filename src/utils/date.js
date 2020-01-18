@@ -30,7 +30,7 @@ export const getNow = () => {
 };
 
 /**
- * Returns number of days before birthday
+ * Returns number of days between two dates.
  * @param {Array<number>} fromDate [day, month]
  * @param {Array<number>} toDate [day, month]
  * @returns {number}
@@ -40,7 +40,7 @@ export const diffDays = (fromDate, toDate) => {
 	if (!fromDate) return null;
 	const [fromDay, fromMonth] = fromDate;
 	const [toDay, toMonth] = toDate;
-	const isToAfter = fromMonth <= toMonth && fromDay <=toDay;
+	const isToAfter = fromMonth < toMonth || (fromMonth === toMonth && fromDay <= toDay);
 	const fromYear = '2000'; // prestupny rok?
 	const toYear = isToAfter ? '2000' : '2001';
 	const from = createDate(fromYear, fromDay, fromMonth);

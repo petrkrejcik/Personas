@@ -9,6 +9,7 @@ describe('diffDays', () => {
 			[[1, 1], [1, 2], [31]],
 			[[31, 12], [1, 1], [1]],
 			[[2, 1], [1, 1], [365]],
+			[[31, 1], [1, 2], [1]],
 		];
 		results.forEach(([fromDate, toDate, [output]]) => {
 			expect(diffDays(fromDate, toDate)).equal(output);
